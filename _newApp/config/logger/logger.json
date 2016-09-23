@@ -1,0 +1,14 @@
+{
+    "ProfilerEnabled": true,
+    "LogLevel": {LOGLEVEL},
+    "DefaultLogType": "fileLoggerDefault",
+    "AppName" : "{APP_NAME}-",
+    "FormatType" : "json",
+    "FileLogger": [
+        {
+            "Key": "fileLoggerDefault",
+            "Path": "/var/log/{APP_NAME}/",
+            "FileNamePrefix": "api-"       
+        }       
+    ]
+}

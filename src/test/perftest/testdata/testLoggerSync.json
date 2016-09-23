@@ -1,0 +1,19 @@
+{
+  "ProfilerEnabled": false,
+  "LogLevel": 5,
+  "DefaultLogType": "fileLoggerDefault",
+  "AppName": "florest-test-",
+  "FormatType": "json",
+  "FileLogger": [
+    {
+      "Key": "fileLoggerDefault",
+      "Path": "/tmp/",
+      "FileNamePrefix": "api-"
+    }
+  ],
+  "AsyncLogger": {
+    "Enabled": false,
+    "LogQSize": 5000000,
+    "FlushInterval": 10
+  }
+}

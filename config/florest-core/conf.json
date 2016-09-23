@@ -1,0 +1,38 @@
+{  
+   "AppName":"florest",
+   "AppVersion":"1.0.0",
+   "ServerPort":"8080",
+   "LogConfFile":"conf/logger.json",
+   "MonitorConfig":{  
+      "AppName":"florest",
+      "Platform":"DatadogAgent",
+      "AgentServer":"datadog:8125",
+      "Verbose":false,
+      "Enabled":false,
+      "MetricsServer":"datadog:8065"
+   },
+   "Performance":{  
+      "UseCorePercentage":100,
+      "GCPercentage":1000
+   },
+   "HttpConfig":{  
+      "MaxConn":200,
+      "MaxIdleConns":2,
+      "ResponseHeaderTimeout":30,
+      "DisableKeepAlives":false
+   },
+   "Profiler":{  
+      "SamplingRate":0.6,
+      "Enable": true
+   },
+   "ApplicationConfig":{  
+      "ResponseHeaders":{  
+         "CacheControl":{  
+            "ResponseType":"public",
+            "NoCache":false,
+            "NoStore":false,
+            "MaxAgeInSeconds":300
+         }
+      }
+   }
+}

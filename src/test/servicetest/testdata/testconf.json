@@ -1,0 +1,39 @@
+{
+  "AppName": "florest",
+  "AppVersion": "1.0.0",
+  "ServerPort": "8080",
+  "LogConfFile": "conf/logger.json",
+  "MonitorConfig": {
+    "AppName": "florest",
+    "Platform": "DatadogAgent",
+    "AgentServer": "datadog:8125",
+    "Verbose": false,
+    "Enabled": true,
+    "MetricsServer": "datadog:8065"
+  },
+  "Performance": {
+    "UseCorePercentage": 100,
+    "GCPercentage": 1000
+  },
+  "ApplicationConfig": {
+    "ResponseHeaders": {
+      "CacheControl": {
+        "ResponseType": "public",
+        "NoCache": false,
+        "NoStore": false,
+        "MaxAgeInSeconds": 300
+      }
+    },
+    "MySQL" : {
+         "DriverName" : "mysql",
+         "Username" : "root",
+         "Password" : "",
+         "Host" : "localhost",
+         "Port" : "3306",
+         "Dbname" : "bobalice",
+         "Timezone" : "Local",
+         "MaxOpenCon" : 2,
+         "MaxIdleCon" : 1
+      }
+  }
+}

@@ -1,0 +1,36 @@
+# logrotate config for discovery logs
+# needs logrotate version 3.8.7
+# place this in /etc/logrotate.d/
+
+# Best practice is to set the logrotate to run as an hourly cron with
+# the below command:-
+# /usr/sbin/logrotate /etc/logrotate.d/discovery_logrotate
+
+# If App name is changed from discovery and the location of log
+# is changed then change the below log name as well
+/var/log/discovery/discovery-*.log {
+	# su user group Rotate log files created by this user and group. This needs to be changed in
+	# each environment. user and group have to be set to the user and its group who is generating the logs	
+	su jade jade
+
+	# Don't throw any errors or warning if there are no log files
+	missingok
+
+	# Don;t create any log file after rolling
+	nocreate
+
+	# Compress log file after creation
+	compress
+
+	# logrotate to be run hourly. This is not necessary since we are setting this up in hourly cron
+	hourly
+
+	# max file size after which to do log rotation
+	maxsize 1G
+
+	# max number of days for which rolled log files are to be kept
+	maxage 28
+
+	# max number of times a file is to be rotated.
+	rotate 500
+}

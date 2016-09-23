@@ -1,0 +1,24 @@
+{  
+   "LogLevel":{LOGLEVEL},
+   "DefaultLogType":"fileLoggerDefault",
+   "AppName":"florest-",
+   "FileLogger":[  
+      {  
+         "Key":"fileLoggerDefault",
+         "Path":"/var/log/florest/",
+         "FileNamePrefix":"api-",
+         "FormatType":"json"
+      },
+      {  
+         "Key":"cacheError",
+         "Path":"/var/log/florest/",
+         "FileNamePrefix":"api-cache-",
+         "FormatType":"json"
+      }
+   ],
+   "AsyncLogger":{  
+      "Enabled":true,
+      "LogQSize":20,
+      "FlushInterval":10
+   }
+}

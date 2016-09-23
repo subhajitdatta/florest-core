@@ -1,0 +1,24 @@
+services:
+  - mysql
+  - mongodb
+
+language: go
+
+go:
+- 1.7
+- 1.6
+- 1.5
+- tip
+
+before_script:
+  - sleep 15
+  - mysql -e 'create database bobalice;'
+
+install:
+- go get github.com/onsi/ginkgo/ginkgo
+- go get github.com/onsi/gomega
+
+script:
+- make test
+- make coverage
+
