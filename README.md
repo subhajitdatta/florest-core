@@ -39,7 +39,7 @@ All the backend microservices in Jabong are written on top of `florest`. Refer t
 
   ```bash
   sudo mkdir /var/log/restapi/          # This can be changed
-  chown <user who will be executing the app> /var/log/florest
+  chown <user who will be executing the app> /var/log/restapi
   ```
   
 * To build the application execute the below command:-
