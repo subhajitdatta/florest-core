@@ -8,6 +8,7 @@
     {
       "Key": "fileLoggerDefault",
       "Path": "/tmp/",
+      "FormatType": "json",
       "FileNamePrefix": "api-"
     }
   ],
