@@ -15,5 +15,5 @@ func Example() {
 	prof.StartProfiler("fact")
 	_ = Factorial(100)
 	t := prof.EndProfiler()
-	fmt.Printf("\nFactorial took %d microseconds")
+	fmt.Printf("\nFactorial took %d microseconds", t)
 }
