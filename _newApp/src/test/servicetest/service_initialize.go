@@ -2,8 +2,9 @@ package servicetest
 
 import (
 	"common/appconstant"
-	"github.com/jabong/florest-core/src/core/service"
 	"hello"
+
+	"github.com/jabong/florest-core/src/core/service"
 )
 
 func InitializeTestService() {
@@ -12,6 +13,8 @@ func InitializeTestService() {
 	initTestLogger()
 
 	initTestConfig()
+
+	service.InitMonitor()
 
 	service.InitVersionManager()
 

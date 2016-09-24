@@ -16,6 +16,8 @@ func InitializeTestService() {
 
 	initTestLogger()
 
+	service.InitMonitor()
+
 	service.InitVersionManager()
 
 	service.InitCustomAPIInit()

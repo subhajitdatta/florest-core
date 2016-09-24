@@ -46,7 +46,7 @@ func (im InitManager) Execute() {
 	initLogger()
 
 	// Initilalize Monitor
-	initMonitor()
+	InitMonitor()
 
 	// initialize profiler
 	initProfiler()
@@ -267,7 +267,7 @@ func InitHealthCheck() {
 }
 
 // initMonitor: initlaize monitor
-func initMonitor() {
+func InitMonitor() {
 	if config.GlobalAppConfig.MonitorConfig.Enabled {
 		if err := monitor.Initialize(&config.GlobalAppConfig.MonitorConfig); err != nil {
 			logger.Error(fmt.Sprintln(err))
