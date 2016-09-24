@@ -1,5 +1,7 @@
 # `florest`
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Flo(w)Rest is a workflow based REST API framework. Each request to the REST api (defined) triggers a workflow consisting of different nodes and the request data flows through each one of them in the way that they are connected to each other.
 
 All the backend microservices in Jabong are written on top of `florest`. Refer the [wiki](https://github.com/jabong/florest-core/wiki) for the detailed explanation. 
@@ -37,7 +39,7 @@ All the backend microservices in Jabong are written on top of `florest`. Refer t
 
   ```bash
   sudo mkdir /var/log/restapi/          # This can be changed
-  chown <user who will be executing the app> /var/log/florest
+  chown <user who will be executing the app> /var/log/restapi
   ```
   
 * To build the application execute the below command:-
