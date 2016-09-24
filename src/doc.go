@@ -1,4 +1,4 @@
-// Package florest-core provides a workflow based REST API framework.
+// Package florest-core/src provides a workflow based REST API framework.
 //
 // Pre-requisites
 //
@@ -58,4 +58,4 @@
 //		make format
 //
 // Refer https://github.com/jabong/florest-core/wiki for more
-package florest_core
+package src
