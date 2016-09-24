@@ -14,7 +14,7 @@ func (h *Hello) DisplayMsg(msg string) {
 	fmt.Println("Hello " + msg)
 }
 
-func ExampleWorker() {
+func Example() {
 	c := Config{NWorkers: 10, TaskQueueSize: 15}
 
 	//Instantiate a WPExecutor which internally creates a taskqueue and workerchannelpool :
