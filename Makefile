@@ -41,7 +41,7 @@ coverage: install
 	@sh src/test/coverage.sh
 
 bench: install
-	@go test -run=NONE -bench=. src/test/perftest/*
+	@go test -run=NONE -bench=. src/test/perftest/*.go
 
 clean:
 	@go clean $(GOFLAGS) -i ./...

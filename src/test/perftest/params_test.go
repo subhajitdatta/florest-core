@@ -58,44 +58,21 @@ var (
 func init() {
 	println("#Parse Routes:", len(parseAPIRoutes))
 
-	calcMem("HttpRouter_Parse", func() {
-		parseHTTPRouter = loadHTTPRouter(parseAPIRoutes)
-	})
-
 	calcMem("Florest_Parse", func() {
 		loadFlorest("v1", "test", parseAPIRoutesFlorest)
 	})
-}
-
-func BenchmarkHttpRouterParseStatic(b *testing.B) {
-	req, _ := http.NewRequest("GET", "/1/users", nil)
-	benchHTTPRouteRequest(b, parseHTTPRouter, req)
 }
 
 func BenchmarkFlorestParseStatic(b *testing.B) {
 	benchFlorestRequest(b, "GET", "/1/users")
 }
 
-func BenchmarkHttpRouterParseParam(b *testing.B) {
-	req, _ := http.NewRequest("GET", "/1/classes/go", nil)
-	benchHTTPRouteRequest(b, parseHTTPRouter, req)
-}
-
 func BenchmarkFlorestParseParam(b *testing.B) {
 	benchFlorestRequest(b, "GET", "/1/classes/go")
 }
 
-func BenchmarkHttpRouterParse2Params(b *testing.B) {
-	req, _ := http.NewRequest("GET", "/1/classes/go/123456789", nil)
-	benchHTTPRouteRequest(b, parseHTTPRouter, req)
-}
-
 func BenchmarkFlorestParse2Params(b *testing.B) {
 	benchFlorestRequest(b, "GET", "/1/classes/go/123456789")
-}
-
-func BenchmarkHttpRouterParamAll(b *testing.B) {
-	benchHTTPRoutes(b, parseHTTPRouter, parseAPIRoutes)
 }
 
 func BenchmarkFlorestParamAll(b *testing.B) {

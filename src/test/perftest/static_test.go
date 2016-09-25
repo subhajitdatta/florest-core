@@ -177,10 +177,6 @@ func init() {
 		staticHTTPServeMux = loadHTTPServeMux(staticRoutes)
 	})
 
-	calcMem("HttpRouter", func() {
-		staticHTTPRouter = loadHTTPRouter(staticRoutes)
-	})
-
 	calcMem("Florest", func() {
 		loadFlorest("v1", "test", staticRoutes)
 	})
@@ -188,10 +184,6 @@ func init() {
 
 func BenchmarkHttpServeMuxStaticAll(b *testing.B) {
 	benchHTTPRoutes(b, staticHTTPServeMux, staticRoutes)
-}
-
-func BenchmarkHttpRouterStaticAll(b *testing.B) {
-	benchHTTPRoutes(b, staticHTTPRouter, staticRoutes)
 }
 
 func BenchmarkFlorestStaticAll(b *testing.B) {
