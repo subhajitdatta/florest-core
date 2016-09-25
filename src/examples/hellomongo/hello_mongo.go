@@ -14,12 +14,12 @@ type mongoNode struct {
 	id string
 }
 
-func (n *mongoNode) SetID(id string) {
-	n.id = id
+func (a *mongoNode) SetID(id string) {
+	a.id = id
 }
 
-func (n mongoNode) GetID() (id string, err error) {
-	return n.id, nil
+func (a mongoNode) GetID() (id string, err error) {
+	return a.id, nil
 }
 
 func (a mongoNode) Name() string {
@@ -28,7 +28,7 @@ func (a mongoNode) Name() string {
 
 // an example for mongo document
 type employeeInfo struct {
-	Id   string
+	ID   string
 	Type string
 }
 
@@ -57,7 +57,7 @@ func (a mongoNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, err
 	var query map[string]interface{}
 
 	// insert
-	if errI := db.Insert(collection, &employeeInfo{Id: "123", Type: "Manager"}); errI != nil {
+	if errI := db.Insert(collection, &employeeInfo{ID: "123", Type: "Manager"}); errI != nil {
 		msg := fmt.Sprintf("Insert to Mongo Failed - %v", errI)
 		logger.Error(msg)
 		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
@@ -66,7 +66,7 @@ func (a mongoNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, err
 	// update
 	query = make(map[string]interface{}, 1)
 	query["id"] = "123"
-	if errU := db.Update(collection, query, &employeeInfo{Id: "123", Type: "Director"}); errU != nil {
+	if errU := db.Update(collection, query, &employeeInfo{ID: "123", Type: "Director"}); errU != nil {
 		msg := fmt.Sprintf("Mongo Update Failed %v", errU)
 		logger.Error(msg)
 		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: fmt.Sprintf("Mongo Update Failed %v", errU)}

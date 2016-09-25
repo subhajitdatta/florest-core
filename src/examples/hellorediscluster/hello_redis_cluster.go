@@ -14,12 +14,12 @@ type redisClusterNode struct {
 	id string
 }
 
-func (n *redisClusterNode) SetID(id string) {
-	n.id = id
+func (a *redisClusterNode) SetID(id string) {
+	a.id = id
 }
 
-func (n redisClusterNode) GetID() (id string, err error) {
-	return n.id, nil
+func (a redisClusterNode) GetID() (id string, err error) {
+	return a.id, nil
 }
 
 func (a redisClusterNode) Name() string {

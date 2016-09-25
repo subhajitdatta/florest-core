@@ -14,12 +14,12 @@ type mysqlNode struct {
 	id string
 }
 
-func (n *mysqlNode) SetID(id string) {
-	n.id = id
+func (a *mysqlNode) SetID(id string) {
+	a.id = id
 }
 
-func (n mysqlNode) GetID() (id string, err error) {
-	return n.id, nil
+func (a mysqlNode) GetID() (id string, err error) {
+	return a.id, nil
 }
 
 func (a mysqlNode) Name() string {

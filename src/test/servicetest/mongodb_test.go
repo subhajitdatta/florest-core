@@ -2,6 +2,7 @@ package servicetest
 
 import (
 	"encoding/json"
+
 	"github.com/jabong/florest-core/src/components/mongodb"
 	gk "github.com/onsi/ginkgo"
 	gm "github.com/onsi/gomega"
@@ -9,7 +10,7 @@ import (
 
 // an example for mongo document
 type employeeInfo struct {
-	Id   string
+	ID   string
 	Type string
 }
 
@@ -37,7 +38,7 @@ func mongodbTest() {
 			})
 		})
 		gk.Context("then mongodb impl", func() {
-			ierr := db.Insert(collection, &employeeInfo{Id: "123", Type: "Manager"})
+			ierr := db.Insert(collection, &employeeInfo{ID: "123", Type: "Manager"})
 			gk.It("should not return error on insert", func() {
 				gm.Expect(ierr).To(gm.BeNil())
 			})
@@ -45,7 +46,7 @@ func mongodbTest() {
 		query := make(map[string]interface{}, 1)
 		query["id"] = "123"
 		gk.Context("then mongodb impl", func() {
-			uerr := db.Update(collection, query, &employeeInfo{Id: "123", Type: "Director"})
+			uerr := db.Update(collection, query, &employeeInfo{ID: "123", Type: "Director"})
 			gk.It("should not return error on update", func() {
 				gm.Expect(uerr).To(gm.BeNil())
 			})
@@ -59,7 +60,7 @@ func mongodbTest() {
 				emp1 := new(employeeInfo)
 				byt, _ := json.Marshal(ret)
 				json.Unmarshal(byt, emp1)
-				gm.Expect(emp1.Id).To(gm.Equal("123"))
+				gm.Expect(emp1.ID).To(gm.Equal("123"))
 			})
 
 		})
