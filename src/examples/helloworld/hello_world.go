@@ -1,6 +1,8 @@
 package helloworld
 
 import (
+	"fmt"
+
 	"github.com/jabong/florest-core/src/common/constants"
 	"github.com/jabong/florest-core/src/common/logger"
 	workflow "github.com/jabong/florest-core/src/core/common/orchestrator"
@@ -26,7 +28,7 @@ func (h helloNode) Name() string {
 func (h helloNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, error) {
 	//Business Logic
 	if _, err := misc.GetRequestFromIO(io); err != nil {
-		logger.Error("Error in getting request from IO - %v", err)
+		logger.Error(fmt.Sprintf("Error in getting request from IO - %v", err))
 		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: "invalid request"}
 	}
 	io.IOData.Set(constants.Result, "Hello World")

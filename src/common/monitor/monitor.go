@@ -1,13 +1,5 @@
 package monitor
 
-import ()
-
-// myMonitor contains an instance of implementation of MonitorInterface
-type myMonitor struct {
-	agent     MInterface
-	isEnabled bool
-}
-
 // monitorObj singleton object
 var monitorObj MInterface
 
