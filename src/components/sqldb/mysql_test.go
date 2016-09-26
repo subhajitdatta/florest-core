@@ -23,9 +23,9 @@ func TestSqlDb(t *testing.T) {
 	conf.Timezone = "Local"
 	conf.MaxOpenCon = 2
 	conf.MaxIdleCon = 1
-	dbObj, err := Get(conf)
-	if err == nil {
-		t.Fatal("init db must fail, but it passed")
+	dbObj, errC := Get(conf)
+	if errC == nil {
+		t.Fatal("Failed to get myql config")
 	}
 	// As invalid db object, assert error for all methods
 	if _, err := dbObj.Query("invalid query"); err == nil {
@@ -36,10 +36,10 @@ func TestSqlDb(t *testing.T) {
 		t.Fatal("execute must fail for this invalid db")
 	}
 
-	if _, err = dbObj.GetTxnObj(); err == nil {
+	if _, err := dbObj.GetTxnObj(); err == nil {
 		t.Fatal("get txn object must fail for this invalid db")
 	}
-	if err = dbObj.Close(); err != nil {
-		t.Fatal("close must fail for this invalid db %v", err)
+	if err := dbObj.Close(); err != nil {
+		t.Fatalf("close must fail for this invalid db %v", err)
 	}
 }

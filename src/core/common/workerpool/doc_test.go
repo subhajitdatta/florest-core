@@ -15,17 +15,19 @@ func (h *Hello) DisplayMsg(msg string) {
 }
 
 func Example() {
-	c := Config{NWorkers: 10, TaskQueueSize: 15}
+	c := workerpool.Config{NWorkers: 10, TaskQueueSize: 15}
 
 	//Instantiate a WPExecutor which internally creates a taskqueue and workerchannelpool :
-	wp, err := NewWPExecutor(c)
+	wp, err := workerpool.NewWPExecutor(c)
 	if err != nil {
 		log.Printf("Failed to instantiate WPExecutor")
 	}
 
 	// Submit a task
 	hello := new(Hello)
-	task := workerpool.Task{hello, "DisplayMsg", "Florest"}
+	b := make([]interface{}, 1)
+	b[0] = "Florest"
+	task := workerpool.Task{hello, "DisplayMsg", b}
 
 	// Execute the task
 	wp.ExecuteTask(task)

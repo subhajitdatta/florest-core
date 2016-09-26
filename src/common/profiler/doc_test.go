@@ -1,6 +1,10 @@
 package profiler_test
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/jabong/florest-core/src/common/profiler"
+)
 
 func Factorial(n int) int {
 	fact := 1
@@ -11,9 +15,9 @@ func Factorial(n int) int {
 }
 
 func Example() {
-	prof := NewProfiler()
-	prof.StartProfiler("fact")
+	prof := profiler.NewProfiler()
+	prof.StartProfile("fact")
 	_ = Factorial(100)
-	t := prof.EndProfiler()
+	t := prof.EndProfile()
 	fmt.Printf("\nFactorial took %d microseconds", t)
 }

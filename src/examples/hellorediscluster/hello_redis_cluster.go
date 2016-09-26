@@ -14,12 +14,12 @@ type redisClusterNode struct {
 	id string
 }
 
-func (n *redisClusterNode) SetID(id string) {
-	n.id = id
+func (a *redisClusterNode) SetID(id string) {
+	a.id = id
 }
 
-func (n redisClusterNode) GetID() (id string, err error) {
-	return n.id, nil
+func (a redisClusterNode) GetID() (id string, err error) {
+	return a.id, nil
 }
 
 func (a redisClusterNode) Name() string {
@@ -55,9 +55,9 @@ func (a redisClusterNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowDa
 		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
 	}
 	// Put some items with TTL
-	item1 := cache.Item{"somekey1", "somevalue1", ""}
-	item2 := cache.Item{"somekey2", "somevalue2", ""}
-	item3 := cache.Item{"somekey3", "somevalue3", ""}
+	item1 := cache.Item{Key: "somekey1", Value: "somevalue1", Error: ""}
+	item2 := cache.Item{Key: "somekey2", Value: "somevalue2", Error: ""}
+	item3 := cache.Item{Key: "somekey3", Value: "somevalue3", Error: ""}
 
 	if errT := cacheAdapter.SetWithTimeout(item1, false, false, 1000); errT != nil {
 		msg := fmt.Sprintf("Error in setting keys in cache item1. Error - %v", errT)

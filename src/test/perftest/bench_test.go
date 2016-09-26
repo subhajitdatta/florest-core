@@ -1,19 +1,13 @@
 package perftest
 
 import (
-	"github.com/jabong/florest-core/src/core/service"
-	testUtil "github.com/jabong/florest-core/src/test/utils"
 	"net/http"
 	"runtime"
 	"testing"
+
+	"github.com/jabong/florest-core/src/core/service"
+	testUtil "github.com/jabong/florest-core/src/test/utils"
 )
-
-func BenchmarkHttpRouterParam(b *testing.B) {
-	router := loadHTTPRouterSingle("GET", "/user/:name", httpRouterHandle)
-
-	r, _ := http.NewRequest("GET", "/user/gordon", nil)
-	benchHTTPRouteRequest(b, router, r)
-}
 
 func BenchmarkFlorestParam(b *testing.B) {
 	loadFlorestSingle("GET", "v1", "test", "user/{name}")

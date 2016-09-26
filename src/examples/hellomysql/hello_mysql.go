@@ -14,12 +14,12 @@ type mysqlNode struct {
 	id string
 }
 
-func (n *mysqlNode) SetID(id string) {
-	n.id = id
+func (a *mysqlNode) SetID(id string) {
+	a.id = id
 }
 
-func (n mysqlNode) GetID() (id string, err error) {
-	return n.id, nil
+func (a mysqlNode) GetID() (id string, err error) {
+	return a.id, nil
 }
 
 func (a mysqlNode) Name() string {
@@ -48,7 +48,7 @@ func (a mysqlNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, err
 			return
 		}
 		if errC := db.Close(); errC != nil {
-			logger.Error("Failed to close DB Connection - %v", errC)
+			logger.Error(fmt.Sprintf("Failed to close DB Connection - %v", errC))
 		}
 	}()
 	if errG != nil {

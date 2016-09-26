@@ -43,22 +43,6 @@ func loadHTTPServeMux(routes []route) http.Handler {
 	return serveMux
 }
 
-func loadHTTPRouterSingle(method, path string, handle httprouter.Handle) http.Handler {
-	router := httprouter.New()
-	router.Handle(method, path, handle)
-	return router
-}
-
-func loadHTTPRouter(routes []route) http.Handler {
-	h := httpRouterHandle
-
-	router := httprouter.New()
-	for _, route := range routes {
-		router.Handle(route.method, route.path, h)
-	}
-	return router
-}
-
 func loadFlorestSingle(action string, version string, resource string, path string) {
 	testAPI := new(api.TestAPI)
 	testAPI.SetVersion(action, version, resource, path)

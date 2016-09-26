@@ -9,12 +9,6 @@ import (
 	"gopkg.in/redis.v3"
 )
 
-// redisAdapter contains the redis client and the hash values that are used in the redis cluster
-type redisAdapter struct {
-	client *redis.ClusterClient
-	hashes []string
-}
-
 type mgetResult struct {
 	Keys           []string
 	SliceCmdOutput *redis.SliceCmd

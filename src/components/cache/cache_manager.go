@@ -12,6 +12,4 @@ func Get(conf Config) (ret CInterface, err error) {
 	default:
 		return nil, getErrObj(ErrNoPlatform, conf.Platform+" is not supported")
 	}
-	// Will never reach here
-	return nil, nil
 }

@@ -14,12 +14,12 @@ type redisNode struct {
 	id string
 }
 
-func (n *redisNode) SetID(id string) {
-	n.id = id
+func (a *redisNode) SetID(id string) {
+	a.id = id
 }
 
-func (n redisNode) GetID() (id string, err error) {
-	return n.id, nil
+func (a redisNode) GetID() (id string, err error) {
+	return a.id, nil
 }
 
 func (a redisNode) Name() string {
