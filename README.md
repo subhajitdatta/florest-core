@@ -93,7 +93,7 @@ To run the examples execute the below command:-
 go get -u github.com/jabong/florest-core/src/examples
 ```
 
-The above command will place the `examples` binary in `$GOROOT/bin` directory.
+The above command will place the `examples` binary in `$GOPATH/bin` directory.
 
 To execute the examples create a conf file named [conf.json](config/florest-core/conf.json) & [logger.json](config/florest-core/logger.json) and place it in `conf/` in the same folder where `examples` binary is placed.
 
