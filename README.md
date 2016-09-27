@@ -6,6 +6,18 @@ Flo(w)Rest is a workflow based REST API framework. Each request to the REST api 
 
 All the backend microservices in Jabong are written on top of `florest`. Refer the [wiki](https://github.com/jabong/florest-core/wiki) for the detailed explanation. 
 
+# Features
+ * [Customized Workflow](https://github.com/jabong/florest-core/wiki/Workflow#workflow-definition)
+ * [A/B Test](https://github.com/jabong/florest-core/wiki/A-B-Test)
+ * [Dynamic Config](https://github.com/jabong/florest-core/wiki/Configuration#dynamic-config)
+ * [Logger](https://github.com/jabong/florest-core/wiki/Logger)
+ * [Monitor](https://github.com/jabong/florest-core/wiki/Monitor)
+ * [Profiler](https://github.com/jabong/florest-core/wiki/Profiler)
+ * [Database & Cache Adapters](https://github.com/jabong/florest-core/wiki/Components)
+ * [Worker Pool](https://github.com/jabong/florest-core/wiki/Worker-Pool)
+ * [HTTP Utilities e.g connection pool](https://github.com/jabong/florest-core/wiki/HTTP-Utilities)
+ * [Swagger](https://github.com/jabong/florest-core/wiki/Swagger) 
+
 # Pre-requisites
 
 1. Go 1.5+
