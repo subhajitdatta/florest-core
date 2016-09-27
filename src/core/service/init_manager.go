@@ -268,10 +268,8 @@ func InitHealthCheck() {
 
 // InitMonitor initializes the monitor
 func InitMonitor() {
-	if config.GlobalAppConfig.MonitorConfig.Enabled {
-		if err := monitor.Initialize(&config.GlobalAppConfig.MonitorConfig); err != nil {
-			logger.Error(fmt.Sprintln(err))
-		}
+	if err := monitor.Initialize(&config.GlobalAppConfig.MonitorConfig); err != nil {
+		logger.Error(fmt.Sprintln(err))
 	}
 }
 

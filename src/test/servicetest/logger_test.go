@@ -9,7 +9,7 @@ import (
 
 func loggerTest() {
 	gk.Describe("test async logger with string format", func() {
-		aerr := logger.Initialise("testdata/testloggerAsync.json")
+		aerr := logger.Initialise("testdata/testLoggerAsync.json")
 		gk.Context("then log manager", func() {
 			gk.It("should not return error", func() {
 				gm.Expect(aerr).To(gm.BeNil())
@@ -36,7 +36,7 @@ func loggerTest() {
 
 	})
 	gk.Describe("test sync logger with json format", func() {
-		serr := logger.Initialise("testdata/testloggerSync.json")
+		serr := logger.Initialise("testdata/testLoggerSync.json")
 		gk.Context("then log manager", func() {
 			gk.It("should not return error", func() {
 				gm.Expect(serr).To(gm.BeNil())

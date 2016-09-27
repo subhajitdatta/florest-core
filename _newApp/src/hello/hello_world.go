@@ -2,6 +2,7 @@ package hello
 
 import (
 	errors "common/appconstant"
+
 	florest_constants "github.com/jabong/florest-core/src/common/constants"
 	workflow "github.com/jabong/florest-core/src/core/common/orchestrator"
 )
@@ -19,7 +20,7 @@ func (n HelloWorld) GetID() (id string, err error) {
 }
 
 func (a HelloWorld) Name() string {
-	return "HelloWord"
+	return "HelloWorld"
 }
 
 func (a HelloWorld) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, error) {

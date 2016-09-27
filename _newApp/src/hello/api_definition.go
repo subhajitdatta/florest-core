@@ -2,6 +2,7 @@ package hello
 
 import (
 	"fmt"
+
 	"github.com/jabong/florest-core/src/common/constants"
 	"github.com/jabong/florest-core/src/common/logger"
 	"github.com/jabong/florest-core/src/core/common/orchestrator"
@@ -18,6 +19,7 @@ func (a *HelloAPI) GetVersion() versionmanager.Version {
 		Version:  "V1",
 		Action:   "GET",
 		BucketID: constants.OrchestratorBucketDefaultValue, //todo - should it be a constant
+		Path:     "",
 	}
 }
 

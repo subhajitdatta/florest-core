@@ -1,13 +1,12 @@
 {
-  "ProfilerEnabled": false,
   "LogLevel": 5,
   "DefaultLogType": "fileLoggerDefault",
   "AppName": "florest-test-",
-  "FormatType": "json",
   "FileLogger": [
     {
       "Key": "fileLoggerDefault",
       "Path": "/tmp/",
+      "FormatType": "json",
       "FileNamePrefix": "api-"
     }
   ],
