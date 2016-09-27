@@ -1,6 +1,7 @@
 services:
   - mysql
   - mongodb
+  - redis-server
 
 language: go
 
