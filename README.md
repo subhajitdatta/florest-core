@@ -90,7 +90,7 @@ All the backend microservices in Jabong are written on top of `florest`. Refer t
 To run the examples execute the below command:-
 
 ```go
-go get -u github.com/jabong/florest-core/examples
+go get -u github.com/jabong/florest-core/src/examples
 ```
 
 The above command will place the `examples` binary in `$GOROOT/bin` directory.
