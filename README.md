@@ -111,11 +111,14 @@ To execute the examples create a conf file named [conf.json](config/florest-core
 
 **NOTE** - In `logger.json` replace `{LOGLEVEL}` with the loglevel specified in [logger_constants](src/common/logger/logger_constants.go). For example if we want log level to be `info` specify `4` in `{LOGLEVEL}`.
 
-To run the hello world example execute the below command
+To run the hello world example:- 
 
-```bash
-curl -XGET "http://localhost:8080/florest/v1/hello/"
-```
+* Start the server by executing `./examples` from `$GOPATH/bin` directory
+* Send a GET request:-
+
+  ```bash
+  curl -XGET "http://localhost:8080/florest/v1/hello/"
+  ```
 
 This should produce an output like below:-
 
