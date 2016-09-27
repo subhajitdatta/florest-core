@@ -109,6 +109,8 @@ The above command will place the `examples` binary in `$GOPATH/bin` directory.
 
 To execute the examples create a conf file named [conf.json](config/florest-core/conf.json) & [logger.json](config/florest-core/logger.json) and place it in `conf/` in the same folder where `examples` binary is placed.
 
+**NOTE** - In `logger.json` replace `{LOGLEVEL}` with the loglevel specified in [logger_constants](src/common/logger/logger_constants.go). For example if we want log level to be `info` specify `4` in `{LOGLEVEL}`.
+
 To run the hello world example execute the below command
 
 ```bash
