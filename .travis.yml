@@ -3,6 +3,10 @@ services:
   - mongodb
   - redis-server
 
+env:
+  global:
+  - secure: bwGuMI1Cz3N7QBcclfgBU9ILPPKw5+FedBhnA2/sZFcdzZ1GwweEW7tDdFvu6j9L5fBgpsP4heh9VFNozMcedamxVfrdRzcB7muxpRibVKnha1I0UT+6Qui4YVq7Xx8XJODQS/d9IZR6tP0StGzz2b7zySBagrbGBEtggFVGaP61yap+52Kb/0AguC+AUDWWDXoGx+OFjmmRSQKq9HnakBMkj8VRYJqYUTMa3VHy8s+bCOHzXvSlHEcCUUPhIuiYKBzMP1FUQ3+V8X3ZgO4Bz4eFxCuRiUByZMtPt+uWHP1Puha62rLT2XplZcR2zrbqU8EfrBg2oV2l0sNmzKd1q71gRXuVRgK/YptAdN4j9RjK8u8qoIZpc7Z4b+wMZLb5YwgIZlRWx80XcBItyv0dxvPOMm+jiVgB+xd2sarfvAlNEZVDC/rGhmTrjByR/VqxPNtAYrOutWqP2EX//j1O/YECq5Wnnsx6zj8IKYsAawhaOv4vcmDhrzqUpId94oHf89HsMZ2wX7biSCEut/arQkawM2adcaAmnhAww9EzKeMyjP6awXa0ufXiRx9PbwmvR1K6iyneWJAxgHbT2eOk1qX7eCaB7T3eby8xd9Dp+HCRaoKi2fEe3cDTLNTZCZ10zi1OK88iENFUel8E82AXde7IBxNaDqR7xdY76mHNrZc=
+  
 language: go
 
 go:
@@ -18,8 +22,10 @@ before_script:
 install:
 - go get github.com/onsi/ginkgo/ginkgo
 - go get github.com/onsi/gomega
+- go get github.com/mattn/goveralls
 
 script:
 - make test
 - make coverage
+- goveralls -coverprofile=bin/coverage.cov -service=travis-ci
 
