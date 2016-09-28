@@ -25,7 +25,6 @@ install:
 - go get github.com/mattn/goveralls
 
 script:
-- make test
 - make coverage
 - goveralls -coverprofile=bin/coverage.cov -service=travis-ci
 
