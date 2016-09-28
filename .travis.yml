@@ -28,3 +28,14 @@ script:
 - make coverage
 - goveralls -coverprofile=bin/coverage.cov -service=travis-ci
 
+notifications:
+  email:
+    recipients:
+      - florest.core@jabong.com
+      - ishantagarwal1986@gmail.com
+      - devashish.kgp@gmail.com
+      - subharaj.manna@gmail.com
+      - bkpk87@gmail.com
+      - subahjit@gmail.com
+    on_success: change
+    on_failure: always
