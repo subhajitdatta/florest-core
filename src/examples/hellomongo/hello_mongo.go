@@ -94,6 +94,6 @@ func (a mongoNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, err
 	}
 
 	//Business Logic
-	io.IOData.Set(constants.Result, "Insert, Update, Find, FindAll, Remove operation sucessful on Mongo employee collection")
+	io.IOData.Set(constants.Result, "Insert, Update, Find, FindAll, Remove operation successful on Mongo employee collection")
 	return io, nil
 }

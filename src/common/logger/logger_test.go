@@ -8,7 +8,7 @@ import (
 
 //startTest does initialisation that is required before each test
 func startTest() {
-	//TO DO:- Have seperate config for the test
+	//TO DO:- Have separate config for the test
 	Initialise("../../../config/logger/logger_dev.json")
 }
 

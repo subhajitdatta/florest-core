@@ -32,7 +32,7 @@ type ResponseHeaderFields struct {
 	CacheControl CacheControlHeaders
 }
 
-// CacheControlHeaders helps in telling the caller whether to cache the response and upto what time etc.
+// CacheControlHeaders helps in telling the caller whether to cache the response and up to what time etc.
 type CacheControlHeaders struct {
 	ResponseType    string
 	NoCache         bool

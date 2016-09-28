@@ -9,7 +9,7 @@ type FileWriterConfig struct {
 	//FileNamePrefix specifies the prefix for a log file name
 	FileNamePrefix string `json:"FileNamePrefix"`
 
-	//Key specifies a unique name for a paricular logger implementation
+	//Key specifies a unique name for a particular logger implementation
 	Key string `json:"Key"`
 
 	//Path specifies the file logger path

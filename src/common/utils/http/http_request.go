@@ -59,7 +59,7 @@ func (req *Request) GetBodyParameter() (string, error) {
 	return getBodyParam(req.OriginalRequest)
 }
 
-// GetPathParameter returns the value corresponding to the key in Path paramter map as string
+// GetPathParameter returns the value corresponding to the key in Path parameter map as string
 func (req *Request) GetPathParameter(key string) string {
 	pathParams := req.PathParameters
 	if pathParams != nil {

@@ -2,7 +2,7 @@ package sqldb
 
 import ()
 
-// Config struct contains all cofnig data neccessary to connect to mysql DB
+// Config struct contains all cofnig data necessary to connect to mysql DB
 type SDBConfig struct {
 	DriverName string
 	Username   string

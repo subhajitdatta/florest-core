@@ -76,6 +76,6 @@ func (a redisNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, err
 	}
 	logger.Info("Received a value from cache %v", v.Value)
 	//Business Logic
-	io.IOData.Set(constants.Result, "Get & Set in Redis Sucessful")
+	io.IOData.Set(constants.Result, "Get & Set in Redis Successful")
 	return io, nil
 }
