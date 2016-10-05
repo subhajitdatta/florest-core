@@ -7,7 +7,6 @@ import (
 	"github.com/jabong/florest-core/src/common/logger"
 	"github.com/jabong/florest-core/src/components/mongodb"
 	workflow "github.com/jabong/florest-core/src/core/common/orchestrator"
-	expConf "github.com/jabong/florest-core/src/examples/config"
 )
 
 type mongoNode struct {
@@ -33,22 +32,9 @@ type employeeInfo struct {
 }
 
 func (a mongoNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, error) {
-	appConfig, err := expConf.GetExampleAppConfig()
-	if err != nil {
-		msg := "Mongo App Config Not Correct"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-
-	mongoConf := appConfig.Mongo
-	if mongoConf == nil {
-		msg := " Mongo Config is Missing"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
 	collection := "florest"
 
-	db, errG := mongodb.Get(mongoConf)
+	db, errG := mongodb.Get("mymongo")
 	if errG != nil {
 		msg := fmt.Sprintf("Mongo Config Not Correct %v", errG)
 		logger.Error(msg)

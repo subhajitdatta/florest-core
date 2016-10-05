@@ -8,8 +8,7 @@ func TestSqlDb(t *testing.T) {
 	var dbObj SDBInterface
 	conf := new(SDBConfig)
 	// fill invalid driver name
-	conf.DriverName = "invalid" // set driver name as mysql
-	if _, err := Get(conf); err == nil {
+	if _, err := Get("invalid"); err == nil {
 		t.Fatal("invalid driver must throw error")
 	}
 
@@ -23,7 +22,8 @@ func TestSqlDb(t *testing.T) {
 	conf.Timezone = "Local"
 	conf.MaxOpenCon = 2
 	conf.MaxIdleCon = 1
-	dbObj, errC := Get(conf)
+	Set("mysdb", conf, new(MysqlDriver))
+	dbObj, errC := Get("mysdb")
 	if errC == nil {
 		t.Fatal("Failed to get myql config")
 	}

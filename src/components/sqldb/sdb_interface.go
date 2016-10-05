@@ -7,7 +7,7 @@ import (
 // SqlDbInterface is an interface for all sql db implementations. The functions of this interface have to be supported by allsql db implementations
 type SDBInterface interface {
 	// init initialize db instance
-	init(conf *SDBConfig) *SDBError
+	Init(conf *SDBConfig) *SDBError
 	// Query should be used for select purpose
 	Query(string, ...interface{}) (*sql.Rows, *SDBError)
 	// Execute should be used for data changes

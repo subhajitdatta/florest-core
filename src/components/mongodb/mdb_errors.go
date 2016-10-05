@@ -18,6 +18,9 @@ const (
 	ErrInsertFailure  = "Failure in Insert() method"
 	ErrUpdateFailure  = "Failure in Update() method"
 	ErrRemoveFailure  = "Failure in Remove() method"
+	ErrKeyPresent     = "Key is already present"
+	ErrKeyNotPresent  = "Key is not present"
+	ErrWrongType      = "Incorrect type sent"
 )
 
 // getErrObj returns error object with given details

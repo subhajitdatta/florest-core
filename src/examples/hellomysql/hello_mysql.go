@@ -7,7 +7,6 @@ import (
 	"github.com/jabong/florest-core/src/common/logger"
 	"github.com/jabong/florest-core/src/components/sqldb"
 	workflow "github.com/jabong/florest-core/src/core/common/orchestrator"
-	expConf "github.com/jabong/florest-core/src/examples/config"
 )
 
 type mysqlNode struct {
@@ -27,22 +26,8 @@ func (a mysqlNode) Name() string {
 }
 
 func (a mysqlNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, error) {
-	appConfig, err := expConf.GetExampleAppConfig()
-	if err != nil {
-		msg := "MySQL App Config Not Correct"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-
-	mysqlConf := appConfig.MySQL
-	if mysqlConf == nil {
-		msg := " Mysql Config is Missing"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-
 	// get db object
-	db, errG := sqldb.Get(mysqlConf) // It should be called only once and can be shared across go routines
+	db, errG := sqldb.Get("mysdb") // It should be called only once and can be shared across go routines
 	defer func() {
 		if db == nil {
 			return
@@ -115,7 +100,7 @@ func (a mysqlNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, err
 	txObj.Rollback()
 
 	// delete the created table
-	if _, err = db.Execute("drop table florest_employee"); err != nil {
+	if _, err := db.Execute("drop table florest_employee"); err != nil {
 		msg := fmt.Sprintf("Failed to delete florest_employee - %v", terr)
 		logger.Error(msg)
 		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}

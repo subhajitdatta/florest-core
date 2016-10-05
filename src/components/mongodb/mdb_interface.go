@@ -5,7 +5,7 @@ import ()
 // mongodbb interface
 type MDBInterface interface {
 	// init initializes the mongodb instance
-	init(*MDBConfig) *MDBError
+	Init(*MDBConfig) *MDBError
 	// FindOne returns first matching item
 	FindOne(string, map[string]interface{}) (interface{}, *MDBError)
 	// FindAll returns all matching items

@@ -7,12 +7,12 @@ import (
 	"net/url"
 )
 
-type mysqlDriver struct {
+type MysqlDriver struct {
 	db *sql.DB
 }
 
 //init intializes and create a mysql connection
-func (obj *mysqlDriver) init(conf *SDBConfig) (aerr *SDBError) {
+func (obj *MysqlDriver) Init(conf *SDBConfig) (aerr *SDBError) {
 	var err error
 	// open connection
 	obj.db, err = sql.Open(MYSQL, fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true&loc=%s",
@@ -40,7 +40,7 @@ func (obj *mysqlDriver) init(conf *SDBConfig) (aerr *SDBError) {
 }
 
 //Query executes the query on mysql DB and returns the pointer to rows
-func (obj *mysqlDriver) Query(query string, args ...interface{}) (*sql.Rows, *SDBError) {
+func (obj *MysqlDriver) Query(query string, args ...interface{}) (*sql.Rows, *SDBError) {
 	rows, err := obj.db.Query(query, args...)
 	if err != nil {
 		return nil, getErrObj(ErrQueryFailure, err.Error())
@@ -49,7 +49,7 @@ func (obj *mysqlDriver) Query(query string, args ...interface{}) (*sql.Rows, *SD
 }
 
 //Execute executes the query and returns the pointer to the sql Result
-func (obj *mysqlDriver) Execute(query string, args ...interface{}) (sql.Result, *SDBError) {
+func (obj *MysqlDriver) Execute(query string, args ...interface{}) (sql.Result, *SDBError) {
 	res, err := obj.db.Exec(query, args...)
 	if err != nil {
 		return nil, getErrObj(ErrExecuteFailure, err.Error())
@@ -57,7 +57,7 @@ func (obj *mysqlDriver) Execute(query string, args ...interface{}) (sql.Result, 
 	return res, nil
 }
 
-func (obj *mysqlDriver) GetTxnObj() (*sql.Tx, *SDBError) {
+func (obj *MysqlDriver) GetTxnObj() (*sql.Tx, *SDBError) {
 	txn, err := obj.db.Begin()
 	if err != nil {
 		return nil, getErrObj(ErrGetTxnFailure, err.Error())
@@ -65,7 +65,7 @@ func (obj *mysqlDriver) GetTxnObj() (*sql.Tx, *SDBError) {
 	return txn, nil
 }
 
-func (obj *mysqlDriver) Ping() *SDBError {
+func (obj *MysqlDriver) Ping() *SDBError {
 	err := obj.db.Ping()
 	if err != nil {
 		return getErrObj(ErrPingFailure, err.Error())
@@ -73,7 +73,7 @@ func (obj *mysqlDriver) Ping() *SDBError {
 	return nil
 }
 
-func (obj *mysqlDriver) Close() *SDBError {
+func (obj *MysqlDriver) Close() *SDBError {
 	err := obj.db.Close()
 	if err != nil {
 		return getErrObj(ErrCloseFailure, err.Error())

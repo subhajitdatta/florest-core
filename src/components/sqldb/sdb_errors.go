@@ -21,6 +21,9 @@ const (
 	ErrPingFailure    = "Failure in Ping() method"
 	ErrGetTxnFailure  = "Failure in GetTxnObj() method"
 	ErrCloseFailure   = "Failure in Close() method"
+	ErrKeyPresent     = "Key is already present"
+	ErrKeyNotPresent  = "Key is not present"
+	ErrWrongType      = "Incorrect type sent"
 )
 
 // getErrObj returns error object with given details

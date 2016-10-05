@@ -19,26 +19,26 @@ type mdelResult struct {
 	IntCmdOutput *redis.IntCmd
 }
 
-type redisClientAdapter struct {
+type RedisClientAdapter struct {
 	client redisClientInterface
 	hashes []string
 }
 
-func (ra *redisClientAdapter) getHashKey(key string) string {
+func (ra *RedisClientAdapter) getHashKey(key string) string {
 	hash := ra.getHash(key)
 	return ra.getHashKeyFromHash(key, hash)
 }
 
-func (ra *redisClientAdapter) getHashKeyFromHash(key string, hash string) string {
+func (ra *RedisClientAdapter) getHashKeyFromHash(key string, hash string) string {
 	return "{" + hash + "}" + key
 }
 
-func (ra *redisClientAdapter) getHash(key string) string {
+func (ra *RedisClientAdapter) getHash(key string) string {
 	hash := misc.GetHash(key, len(ra.hashes))
 	return ra.hashes[hash]
 }
 
-func (ra *redisClientAdapter) Init(conf *Config) error {
+func (ra *RedisClientAdapter) Init(conf *Config) error {
 	if conf.Cluster {
 		ra.client = redis.NewClusterClient(&redis.ClusterOptions{
 			Addrs:    strings.Split(conf.ConnStr, ","),
@@ -54,7 +54,7 @@ func (ra *redisClientAdapter) Init(conf *Config) error {
 	return nil
 }
 
-func (ra *redisClientAdapter) Get(key string, serialize bool, compress bool) (item *Item, err error) {
+func (ra *RedisClientAdapter) Get(key string, serialize bool, compress bool) (item *Item, err error) {
 	hashKey := ra.getHashKey(key)
 	val, getErr := ra.client.Get(hashKey).Result()
 	if getErr != nil {
@@ -66,7 +66,7 @@ func (ra *redisClientAdapter) Get(key string, serialize bool, compress bool) (it
 	return item, nil
 }
 
-func (ra *redisClientAdapter) Set(item Item, serialize bool, compress bool) error {
+func (ra *RedisClientAdapter) Set(item Item, serialize bool, compress bool) error {
 	hashKey := ra.getHashKey(item.Key)
 	err := ra.client.Set(hashKey, item.Value, 0).Err()
 	if err != nil {
@@ -75,7 +75,7 @@ func (ra *redisClientAdapter) Set(item Item, serialize bool, compress bool) erro
 	return nil
 }
 
-func (ra *redisClientAdapter) SetWithTimeout(item Item, serialize bool, compress bool, ttl int32) error {
+func (ra *RedisClientAdapter) SetWithTimeout(item Item, serialize bool, compress bool, ttl int32) error {
 	hashKey := ra.getHashKey(item.Key)
 	err := ra.client.Set(hashKey, item.Value, time.Duration(ttl)*time.Second).Err()
 	if err != nil {
@@ -84,7 +84,7 @@ func (ra *redisClientAdapter) SetWithTimeout(item Item, serialize bool, compress
 	return nil
 }
 
-func (ra *redisClientAdapter) Delete(key string) error {
+func (ra *RedisClientAdapter) Delete(key string) error {
 	hashKey := ra.getHashKey(key)
 	val, err := ra.client.Del(hashKey).Result()
 
@@ -99,7 +99,7 @@ func (ra *redisClientAdapter) Delete(key string) error {
 	return nil
 }
 
-func (ra *redisClientAdapter) DeleteBatch(keys []string) error {
+func (ra *RedisClientAdapter) DeleteBatch(keys []string) error {
 	hashCountTemp := 0
 	hashKeysMap := make(map[string][]string)
 	keysMap := make(map[string][]string)
@@ -142,7 +142,7 @@ func (ra *redisClientAdapter) DeleteBatch(keys []string) error {
 	return nil
 }
 
-func (ra *redisClientAdapter) GetBatch(keys []string, serialize bool, compress bool) (items map[string]*Item, err error) {
+func (ra *RedisClientAdapter) GetBatch(keys []string, serialize bool, compress bool) (items map[string]*Item, err error) {
 	resMap := make(map[string]*Item, len(keys))
 	hashCountTemp := 0
 	hashKeysMap := make(map[string][]string)

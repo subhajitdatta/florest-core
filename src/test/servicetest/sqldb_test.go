@@ -8,15 +8,13 @@ import (
 
 func sqldbTest() {
 	gk.Describe("test invalid sqldb driver", func() {
-		conf := new(sqldb.SDBConfig)
-		conf.DriverName = "invalid"
-		dbObj, err := sqldb.Get(conf)
+		dbObj, err := sqldb.Get("invalid")
 		gk.Context("then sql manager", func() {
 			gk.It("should return nil impl", func() {
 				gm.Expect(dbObj).To(gm.BeNil())
 			})
 			gk.It("should return error", func() {
-				gm.Expect(err.ErrCode).To(gm.Equal(sqldb.ErrNoDriver))
+				gm.Expect(err.ErrCode).To(gm.Equal(sqldb.ErrKeyNotPresent))
 			})
 		})
 	})
@@ -29,8 +27,13 @@ func sqldbTest() {
 			})
 		})
 		conf := testConf.MySQL
-
-		dbObj, terr := sqldb.Get(conf)
+		serr := sqldb.Set("mysdb", conf, new(sqldb.MysqlDriver))
+		gk.Context("then sql manager", func() {
+			gk.It("should not return error", func() {
+				gm.Expect(serr).To(gm.BeNil())
+			})
+		})
+		dbObj, terr := sqldb.Get("mysdb")
 		gk.Context("then sql manager", func() {
 			gk.It("should not return error", func() {
 				gm.Expect(terr).To(gm.BeNil())
