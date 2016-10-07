@@ -2,7 +2,6 @@ package servicetest
 
 import (
 	"encoding/json"
-
 	"github.com/jabong/florest-core/src/components/mongodb"
 	gk "github.com/onsi/ginkgo"
 	gm "github.com/onsi/gomega"
@@ -16,12 +15,10 @@ type employeeInfo struct {
 
 func mongodbTest() {
 	gk.Describe("test invalid mongodb details", func() {
-		conf := new(mongodb.MDBConfig)
-		conf.URL = "invalid"
-		_, err := mongodb.Get(conf)
+		_, err := mongodb.Get("invalid")
 		gk.Context("then db manager", func() {
 			gk.It("should return error", func() {
-				gm.Expect(err.ErrCode).To(gm.Equal(mongodb.ErrInitialization))
+				gm.Expect(err.ErrCode).To(gm.Equal(mongodb.ErrKeyNotPresent))
 			})
 		})
 	})
@@ -31,7 +28,13 @@ func mongodbTest() {
 		conf := new(mongodb.MDBConfig)
 		conf.URL = "mongodb://localhost:27017"
 		conf.DbName = "florest"
-		db, terr := mongodb.Get(conf)
+		serr := mongodb.Set("mymongo", conf, new(mongodb.MongoDriver))
+		gk.Context("then db manager", func() {
+			gk.It("should not return error", func() {
+				gm.Expect(serr).To(gm.BeNil())
+			})
+		})
+		db, terr := mongodb.Get("mymongo")
 		gk.Context("then db manager", func() {
 			gk.It("should not return error", func() {
 				gm.Expect(terr).To(gm.BeNil())

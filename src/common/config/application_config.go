@@ -3,7 +3,6 @@ package config
 import (
 	"github.com/jabong/florest-core/src/common/monitor"
 	"github.com/jabong/florest-core/src/common/utils/http"
-	"github.com/jabong/florest-core/src/components/cache"
 )
 
 // AppConfig will contain all the app related config data which should be provided at the start of the app
@@ -50,7 +49,7 @@ type DynamicConfigInfo struct {
 	Active          bool
 	RefreshInterval int
 	ConfigKey       string
-	Cache           cache.Config
+	CacheKey        string
 }
 
 // ProfilerConfig is used to profile the application, like the time taken for a request etc.

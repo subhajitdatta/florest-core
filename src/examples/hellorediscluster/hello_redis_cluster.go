@@ -7,7 +7,6 @@ import (
 	"github.com/jabong/florest-core/src/common/logger"
 	"github.com/jabong/florest-core/src/components/cache"
 	workflow "github.com/jabong/florest-core/src/core/common/orchestrator"
-	expConf "github.com/jabong/florest-core/src/examples/config"
 )
 
 type redisClusterNode struct {
@@ -27,29 +26,7 @@ func (a redisClusterNode) Name() string {
 }
 
 func (a redisClusterNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, error) {
-
-	appConfig, err := expConf.GetExampleAppConfig()
-	if err != nil {
-		msg := "Redis Cluster App Config Not Correct"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-
-	cacheConf := appConfig.Cache
-	if cacheConf == nil {
-		msg := "No Cache Config Specified"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-	redisConf := cacheConf.RedisCluster
-	if redisConf == nil {
-		msg := "No Redis Cluster Config Specified"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-
-	// get redis object
-	cacheAdapter, errG := cache.Get(*redisConf) // It should be called only once and can be shared across go routines
+	cacheAdapter, errG := cache.Get("myRedisCluster") // It should be called only once and can be shared across go routines
 	if errG != nil {
 		msg := fmt.Sprintf("Redis Cluster Config Error - %v", errG)
 		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
@@ -94,7 +71,7 @@ func (a redisClusterNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowDa
 
 	items, errGB := cacheAdapter.GetBatch(keys, false, false)
 	if errGB != nil {
-		msg := fmt.Sprintf("Getting bulk items from cache failed. Error - %v", err)
+		msg := fmt.Sprintf("Getting bulk items from cache failed. Error - %v", errGB)
 		logger.Error(msg)
 		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
 	}

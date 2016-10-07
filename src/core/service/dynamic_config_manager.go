@@ -23,7 +23,7 @@ type DynamicConfigManager struct {
 /**
  * Initialize dynamic config manager and start the refresh timer
  */
-func (dcm *DynamicConfigManager) Initialize(applicationConfig interface{}) {
+func (dcm *DynamicConfigManager) Initialize(applicationConfig interface{}, cacheKey string) {
 	//Check if the Dynamic config is already initialized
 	if initialized {
 		return
@@ -36,9 +36,9 @@ func (dcm *DynamicConfigManager) Initialize(applicationConfig interface{}) {
 		return
 	}
 	var err error
-	cacheImpl, err = cache.Get(dynamicConfObj.Cache)
+	cacheImpl, err = cache.Get(cacheKey)
 	if err != nil {
-		panic(fmt.Sprintf("Failed to initialize cache to auto-refresh the config \n %+v \n %s", dynamicConfObj.Cache, err))
+		panic(fmt.Sprintf("Failed to initialize cache to auto-refresh the config \n %+v \n %s", dynamicConfObj.CacheKey, err))
 	}
 
 	refreshInterval = dynamicConfObj.RefreshInterval

@@ -8,9 +8,7 @@ import (
 
 func cacheTest() {
 	gk.Describe("test invalid cache platform", func() {
-		conf := new(cache.Config)
-		conf.Platform = "invalid"
-		obj, err := cache.Get(*conf)
+		obj, err := cache.Get("invalid")
 		gk.Context("then cache manager", func() {
 			gk.It("should return nil impl", func() {
 				gm.Expect(obj).To(gm.BeNil())
@@ -26,7 +24,13 @@ func cacheTest() {
 		conf.Cluster = false
 		conf.ConnStr = "localhost:6379"
 		conf.BucketHashes = []string{"florestHash"}
-		obj, terr := cache.Get(*conf)
+		serr := cache.Set("myredis", conf, new(cache.RedisClientAdapter))
+		gk.Context("then cache manager", func() {
+			gk.It("should return no error", func() {
+				gm.Expect(serr).To(gm.BeNil())
+			})
+		})
+		obj, terr := cache.Get("myredis")
 		gk.Context("then cache manager", func() {
 			gk.It("should return no error", func() {
 				gm.Expect(terr).To(gm.BeNil())

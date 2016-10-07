@@ -7,7 +7,6 @@ import (
 	"github.com/jabong/florest-core/src/common/logger"
 	"github.com/jabong/florest-core/src/components/cache"
 	workflow "github.com/jabong/florest-core/src/core/common/orchestrator"
-	expConf "github.com/jabong/florest-core/src/examples/config"
 )
 
 type redisNode struct {
@@ -27,34 +26,9 @@ func (a redisNode) Name() string {
 }
 
 func (a redisNode) Execute(io workflow.WorkFlowData) (workflow.WorkFlowData, error) {
-	appConfig, err := expConf.GetExampleAppConfig()
-	if err != nil {
-		msg := "Redis App Config Not Correct"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-
-	cacheConf := appConfig.Cache
-	if cacheConf == nil {
-		msg := "No Cache Config Specified"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-	redisConf := cacheConf.Redis
-	if redisConf == nil {
-		msg := "No Redis Config Specified"
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-
-	cacheObj, errG := cache.Get(*redisConf)
+	cacheObj, errG := cache.Get("myredis")
 	if errG != nil {
 		msg := fmt.Sprintf("Redis Config Error - %v", errG)
-		logger.Error(msg)
-		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
-	}
-	if errI := cacheObj.Init(redisConf); errI != nil {
-		msg := fmt.Sprintf("Error in initializing cache object %v", errI)
 		logger.Error(msg)
 		return io, &constants.AppError{Code: constants.InvalidErrorCode, Message: msg}
 	}
