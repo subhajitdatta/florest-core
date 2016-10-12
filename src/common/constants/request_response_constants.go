@@ -21,7 +21,6 @@ const (
 	ResponseHeadersConfig = "RESPONSE_HEADERS_CONFIG"
 	APIResponse           = "API_RESPONSE"
 
-	APPID    = "APP-ID"
 	APPError = "APPERROR"
 
 	HTTPVerb = "HTTPVERB"
@@ -36,16 +35,9 @@ const (
 
 	Result = "RESULT"
 
-	UserID        = "USER_ID"
-	SessionID     = "SESSION_ID"
-	AuthToken     = "AUTHTOKEN"
-	UserAgent     = "USER_AGENT"
-	HTTPReferrer  = "HTTP_REFERRER"
-	BucketsList   = "BUCKETSLIST"
-	RequestID     = "REQUEST_ID"
-	TransactionID = "TRANSACTION_ID"
-	TokenID       = "TOKEN_ID"
-	Debug         = "DEBUG"
+	UserAgent    = "USER_AGENT"
+	HTTPReferrer = "HTTP_REFERRER"
+	BucketsList  = "BUCKETSLIST"
 
 	FieldSeperator    = ","
 	KeyValueSeperator = ":"

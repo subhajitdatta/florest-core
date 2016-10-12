@@ -1,7 +1,6 @@
 package http
 
 import (
-	"github.com/jabong/florest-core/src/common/constants"
 	"net/http"
 	"strconv"
 )
@@ -26,17 +25,17 @@ func GetReqHeader(req *http.Request) RequestHeader {
 	return RequestHeader{
 		ContentType:   req.Header.Get("Content-Type"),
 		Accept:        req.Header.Get("Accept"),
-		UserID:        req.Header.Get(constants.UserID),
-		SessionID:     req.Header.Get(constants.SessionID),
-		AuthToken:     req.Header.Get(constants.AuthToken),
-		TransactionID: req.Header.Get(constants.TransactionID),
-		RequestID:     req.Header.Get(constants.RequestID),
+		UserID:        req.Header.Get(CustomHeaderMap[UserID]),
+		SessionID:     req.Header.Get(CustomHeaderMap[SessionID]),
+		AuthToken:     req.Header.Get(CustomHeaderMap[TokenID]),
+		TransactionID: req.Header.Get(CustomHeaderMap[TransactionID]),
+		RequestID:     req.Header.Get(CustomHeaderMap[RequestID]),
 		Timestamp:     req.Header.Get("ts"),
 		UserAgent:     req.Header.Get("User-Agent"),
 		Referrer:      req.Header.Get("Referer"),
 		BucketsList:   req.Header.Get("bucket"),
-		Debug:         getBoolHeaderField(req, constants.Debug),
-		ClientAppID:   req.Header.Get(constants.APPID),
+		Debug:         getBoolHeaderField(req, CustomHeaderMap[DebugFlag]),
+		ClientAppID:   req.Header.Get(CustomHeaderMap[AppID]),
 	}
 }
 

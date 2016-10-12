@@ -69,3 +69,8 @@ func (req *Request) GetPathParameter(key string) string {
 	}
 	return ""
 }
+
+// GetHeaderParameter returns the value for given header key
+func (req *Request) GetHeaderParameter(key string) string {
+	return req.OriginalRequest.Header.Get(key)
+}

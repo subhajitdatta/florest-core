@@ -49,12 +49,12 @@ func GetData(r *http.Request) (*orchestrator.WorkFlowData, error) {
 	logger.Info(fmt.Sprintf("Service Input Output %v", serviceInputOutput))
 
 	serviceEcContext := new(orchestrator.WorkFlowECInMemoryImpl)
-	serviceEcContext.Set(constants.UserID, appReq.Headers.UserID)
-	serviceEcContext.Set(constants.SessionID, appReq.Headers.SessionID)
-	serviceEcContext.Set(constants.AuthToken, appReq.Headers.AuthToken)
+	serviceEcContext.Set(utilhttp.CustomHeaderMap[utilhttp.UserID], appReq.Headers.UserID)
+	serviceEcContext.Set(utilhttp.CustomHeaderMap[utilhttp.SessionID], appReq.Headers.SessionID)
+	serviceEcContext.Set(utilhttp.CustomHeaderMap[utilhttp.TokenID], appReq.Headers.AuthToken)
 	serviceEcContext.Set(constants.UserAgent, appReq.Headers.UserAgent)
 	serviceEcContext.Set(constants.HTTPReferrer, appReq.Headers.Referrer)
-	serviceEcContext.Set(constants.RequestID, appReq.Headers.RequestID)
+	serviceEcContext.Set(utilhttp.CustomHeaderMap[utilhttp.RequestID], appReq.Headers.RequestID)
 	serviceEcContext.SetBuckets(getBucketsMap(appReq.Headers.BucketsList))
 	serviceEcContext.SetDebugFlag(appReq.Headers.Debug)
 

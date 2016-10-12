@@ -1,7 +1,6 @@
 package http
 
 import (
-	"github.com/jabong/florest-core/src/common/constants"
 	"github.com/twinj/uuid"
 )
 
@@ -14,14 +13,21 @@ func GetHTTPHeaders(rc *RequestContext) map[string]string {
 	}
 
 	headerMap := make(map[string]string, 4)
-	headerMap[constants.UserID] = rc.UserID
-	headerMap[constants.SessionID] = rc.SessionID
-	headerMap[constants.RequestID] = rc.RequestID
-	headerMap[constants.TransactionID] = GetTransactionID()
+	chkNSetMap(CustomHeaderMap, headerMap, UserID, rc.UserID)
+	chkNSetMap(CustomHeaderMap, headerMap, SessionID, rc.SessionID)
+	chkNSetMap(CustomHeaderMap, headerMap, RequestID, rc.RequestID)
+	chkNSetMap(CustomHeaderMap, headerMap, TransactionID, GetTransactionID())
 	return headerMap
 }
 
 //GetTransactionID returns a new v4 UUID
 func GetTransactionID() string {
 	return uuid.NewV4().String()
+}
+
+// chkNSetMap check given key in input map and set in output map
+func chkNSetMap(input map[CustomHeader]string, output map[string]string, key CustomHeader, value string) {
+	if val, ok := input[key]; ok && val != "" {
+		output[val] = value
+	}
 }

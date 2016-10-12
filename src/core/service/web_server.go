@@ -79,7 +79,7 @@ func (ws Webserver) Start() {
 func (ws Webserver) wrapperHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", SwaggerAllowedHeaders)
+	w.Header().Set("Access-Control-Allow-Headers", swaggerAllowedHeaders)
 	w.Header().Set("content-type", "application/json")
 	if strings.HasPrefix(r.URL.Path, "/swagger") {
 		ws.swaggerHandler(w, r)
