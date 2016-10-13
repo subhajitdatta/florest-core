@@ -17,6 +17,7 @@ All the backend microservices in Jabong are written on top of `florest`. Refer t
  * [Worker Pool](https://github.com/jabong/florest-core/wiki/Worker-Pool)
  * [HTTP Utilities e.g connection pool](https://github.com/jabong/florest-core/wiki/HTTP-Utilities)
  * [Swagger](https://github.com/jabong/florest-core/wiki/Swagger) 
+ * [Resilience](https://github.com/jabong/florest-core/wiki/Resilience)
 
 # Pre-requisites
 
