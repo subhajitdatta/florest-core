@@ -58,24 +58,10 @@ ifneq ($(SWAGGER),2)
 	@bash scripts/swagger.sh $(SWAGGER)
 endif
 
-newapp: copyNewAppSrc copyNewAppLibs renameNewAppDir
-
-copyNewAppSrc:
+newapp:
 ifneq ($(NEWAPP),3)
-	@echo building new app
-	@cp -r -f _newApp/* $(NEWAPP)
+	@bash scripts/newapp.sh $(PWD) $(NEWAPP)
 endif
-
-copyNewAppLibs:
-ifneq ($(NEWAPP),3)
-	@echo copying dependent libs
-	@cp -r -f _libs/* $(NEWAPP)/_libs/
-	@mkdir -p $(NEWAPP)/_libs/src/github.com/jabong/florest-core
-	@cp -r -f src $(NEWAPP)/_libs/src/github.com/jabong/florest-core/
-endif
-
-renameNewAppDir:
-	@bash scripts/newapp.sh $(NEWAPP)
 
 coverall:
 	@go test -c -covermode=count -coverpkg ./...

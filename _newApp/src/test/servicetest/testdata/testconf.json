@@ -8,7 +8,7 @@
     "Platform": "DatadogAgent",
     "AgentServer": "datadog:8125",
     "Verbose": false,
-    "Enabled": true,
+    "Enabled": false,
     "MetricsServer": "datadog:8065"
   },
   "Performance": {
