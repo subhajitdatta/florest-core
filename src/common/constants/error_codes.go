@@ -51,6 +51,9 @@ const (
 	// InvalidURLKeyErrorCode is the error code if url contains an invalid key
 	InvalidURLKeyErrorCode APPErrorCode = 1404
 
+	//RequestValidationFailedCode is the error code if request validation fails
+	RequestValidationFailedCode = 1405
+
 	// InvalidURLKeyErrorCode is the error code if url contains an invalid key
 	ResourceErrorCode APPErrorCode = 1501
 
@@ -86,6 +89,7 @@ var appErrorCodeToHTTPCodeMap = map[APPErrorCode]HTTPCode{
 	ParamsInValidErrorCode:      HTTPStatusBadRequestCode,
 	IncorrectDataErrorCode:      HTTPStatusBadRequestCode,
 	InvalidURLKeyErrorCode:      HTTPStatusBadRequestCode,
+	RequestValidationFailedCode: HTTPStatusBadRequestCode,
 	InvalidRequestURI:           HTTPStatusNotFound,
 
 	InvalidErrorCode: HTTPFatalErrorCode,
