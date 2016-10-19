@@ -27,19 +27,4 @@ func TestSqlDb(t *testing.T) {
 	if errC == nil {
 		t.Fatal("Failed to get myql config")
 	}
-	// As invalid db object, assert error for all methods
-	if _, err := dbObj.Query("invalid query"); err == nil {
-		t.Fatal("query must fail for this invalid db")
-	}
-
-	if _, err := dbObj.Execute("invalid execute"); err == nil {
-		t.Fatal("execute must fail for this invalid db")
-	}
-
-	if _, err := dbObj.GetTxnObj(); err == nil {
-		t.Fatal("get txn object must fail for this invalid db")
-	}
-	if err := dbObj.Close(); err != nil {
-		t.Fatalf("close must fail for this invalid db %v", err)
-	}
 }
