@@ -24,16 +24,15 @@ func (d dummyTestDatadogClient) Histogram(name string, value float64, tags []str
 
 func workFunc(arg bool) error {
 	if !arg {
-		return errors.New(errMsg)
+		return errors.New("Testing Failure")
 	}
 	fmt.Println("Hello World")
+	return nil
 }
 
 func Example() {
 	// Register a metrics collector
 	hystrix.RegisterDatadogCollector(dummyTestDatadogClient{})
-
-	errMsg := "Testing Failure"
 	failExec := make(chan bool, 1)
 	errors := hystrix.Go("Example", func() error {
 		// Execute the code which has external dependency here
@@ -41,6 +40,7 @@ func Example() {
 			return err
 		}
 		failExec <- true
+		return nil
 	}, func(err error) error {
 		// Execute the fallback logic in case of failure
 		return err
