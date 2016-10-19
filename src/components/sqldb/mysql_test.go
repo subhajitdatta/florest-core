@@ -5,7 +5,6 @@ import (
 )
 
 func TestSqlDb(t *testing.T) {
-	var dbObj SDBInterface
 	conf := new(SDBConfig)
 	// fill invalid driver name
 	if _, err := Get("invalid"); err == nil {
@@ -23,7 +22,7 @@ func TestSqlDb(t *testing.T) {
 	conf.MaxOpenCon = 2
 	conf.MaxIdleCon = 1
 	Set("mysdb", conf, new(MysqlDriver))
-	dbObj, errC := Get("mysdb")
+	_, errC := Get("mysdb")
 	if errC == nil {
 		t.Fatal("Failed to get myql config")
 	}
