@@ -5,7 +5,6 @@ import (
 )
 
 func TestSqlDb(t *testing.T) {
-	var dbObj SDBInterface
 	conf := new(SDBConfig)
 	// fill invalid driver name
 	if _, err := Get("invalid"); err == nil {
@@ -23,23 +22,8 @@ func TestSqlDb(t *testing.T) {
 	conf.MaxOpenCon = 2
 	conf.MaxIdleCon = 1
 	Set("mysdb", conf, new(MysqlDriver))
-	dbObj, errC := Get("mysdb")
+	_, errC := Get("mysdb")
 	if errC == nil {
 		t.Fatal("Failed to get myql config")
-	}
-	// As invalid db object, assert error for all methods
-	if _, err := dbObj.Query("invalid query"); err == nil {
-		t.Fatal("query must fail for this invalid db")
-	}
-
-	if _, err := dbObj.Execute("invalid execute"); err == nil {
-		t.Fatal("execute must fail for this invalid db")
-	}
-
-	if _, err := dbObj.GetTxnObj(); err == nil {
-		t.Fatal("get txn object must fail for this invalid db")
-	}
-	if err := dbObj.Close(); err != nil {
-		t.Fatalf("close must fail for this invalid db %v", err)
 	}
 }
