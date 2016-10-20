@@ -1,0 +1,18 @@
+{
+	"RequestValidationMessage": [
+		"Validation Failed for Field = Address.City\nValidation Condition = required\n",
+		"Validation Failed for Field = User.FavouriteColor\nValidation Condition = hexcolor|rgb|rgba|hsl|hsla\n"
+	],
+	"User": {
+		"FirstName": "Badger",
+		"LastName": "Smith",
+		"Age": 100,
+		"Email": "Badger.Smith@gmail.com",
+		"FavouriteColor": "#000-"
+	},
+	"Address": {
+		"Street": "Eavesdown Docks",
+		"Planet": "Persphone",
+		"Phone": "none"
+	}
+}

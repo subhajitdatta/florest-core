@@ -15,6 +15,7 @@ func TestSearch(t *testing.T) {
 var _ = gk.Describe("Starting scenario: \n", func() {
 	InitializeTestService()
 	getHealthCheckTest()
+	testRequestValidation()
 	sqldbTest()
 	mongodbTest()
 	cacheTest()
