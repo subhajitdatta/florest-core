@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/jabong/florest-core/src/common/constants"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 	validator "github.com/jabong/florest-core/src/common/validator"
 	"github.com/jabong/florest-core/src/core/common/orchestrator"
 	"github.com/jabong/florest-core/src/core/common/utils/healthcheck"
@@ -96,4 +97,8 @@ func (a *ReqVNAPI) GetHealthCheck() healthcheck.HCInterface {
 
 func (a *ReqVNAPI) Init() {
 	//api initialization should come here
+}
+
+func (a *ReqVNAPI) GetRateLimiter() ratelimiter.RateLimiter {
+	return nil
 }

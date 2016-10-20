@@ -68,6 +68,10 @@ const (
 	InvalidRequestURI APPErrorCode = 1601
 
 	InvalidErrorCode = 2501
+
+	// Rate limiting errors
+	RateLimiterInternalError = 3501
+	RateLimitExceeded        = 1429
 )
 
 const (
@@ -76,14 +80,16 @@ const (
 	HTTPStatusInternalServerErrorCode HTTPCode = 500
 	HTTPFatalErrorCode                HTTPCode = 501
 	HTTPStatusNotFound                HTTPCode = 404
+	HTTPRateLimitExceeded             HTTPCode = 429
 )
 
 var appErrorCodeToHTTPCodeMap = map[APPErrorCode]HTTPCode{
 
-	ResourceErrorCode: HTTPStatusInternalServerErrorCode,
-	DbErrorCode:       HTTPStatusInternalServerErrorCode,
-	IndexErrorCode:    HTTPStatusInternalServerErrorCode,
-	CacheErrorCode:    HTTPStatusInternalServerErrorCode,
+	ResourceErrorCode:        HTTPStatusInternalServerErrorCode,
+	DbErrorCode:              HTTPStatusInternalServerErrorCode,
+	IndexErrorCode:           HTTPStatusInternalServerErrorCode,
+	CacheErrorCode:           HTTPStatusInternalServerErrorCode,
+	RateLimiterInternalError: HTTPStatusInternalServerErrorCode,
 
 	ParamsInSufficientErrorCode: HTTPStatusBadRequestCode,
 	ParamsInValidErrorCode:      HTTPStatusBadRequestCode,
@@ -93,6 +99,8 @@ var appErrorCodeToHTTPCodeMap = map[APPErrorCode]HTTPCode{
 	InvalidRequestURI:           HTTPStatusNotFound,
 
 	InvalidErrorCode: HTTPFatalErrorCode,
+
+	RateLimitExceeded: HTTPRateLimitExceeded,
 }
 
 func GetAppHTTPError(appErrors AppErrors) *APPHttpStatus {

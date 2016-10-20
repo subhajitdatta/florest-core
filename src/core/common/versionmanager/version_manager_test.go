@@ -25,7 +25,7 @@ func TestVersionManager(t *testing.T) {
 	bucketID := "TEST_BUCKET_ID"
 
 	testParam := NewParam()
-	testParam.Update("", *new(testVersionableImpl))
+	testParam.Update("", *new(testVersionableImpl), nil)
 
 	vmap := VersionMap{
 		BasicVersion{
@@ -113,7 +113,7 @@ func TestVersionManager(t *testing.T) {
 }
 
 func getVersionable(resource string, version string, action string, bucketID string, path string, targetPmts map[string]string, t *testing.T) {
-	versionableInstance, pmts, verr := Get(resource, version, action, bucketID, path)
+	versionableInstance, _, pmts, verr := Get(resource, version, action, bucketID, path)
 	if verr != nil {
 		t.Error("Failed to get versionable from version manager for this path - " + path)
 	}
@@ -131,7 +131,7 @@ func getVersionable(resource string, version string, action string, bucketID str
 }
 
 func getVersionableExpectingErrors(resource string, version string, action string, bucketID string, path string, t *testing.T) {
-	_, _, verr := Get(resource, version, action, bucketID, path)
+	_, _, _, verr := Get(resource, version, action, bucketID, path)
 	if verr == nil {
 		t.Error("Expected error, but got a valid versionable for this path - " + path)
 	}
@@ -143,5 +143,5 @@ func addTestVersions(version Version, vmap VersionMap, testVersionableImpl Versi
 		param = NewParam()
 		vmap[version.GetBasicVersion()] = param
 	}
-	param.Update(version.Path, testVersionableImpl)
+	param.Update(version.Path, testVersionableImpl, nil)
 }

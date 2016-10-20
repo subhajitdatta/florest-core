@@ -2,22 +2,24 @@ package config
 
 import (
 	"github.com/jabong/florest-core/src/common/monitor"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 	"github.com/jabong/florest-core/src/common/utils/http"
 )
 
 // AppConfig will contain all the app related config data which should be provided at the start of the app
 type AppConfig struct {
-	AppName           string `json:"AppName"`
-	AppVersion        string `json:"AppVersion"`
-	ServerPort        string
-	LogConfFile       string
-	MonitorConfig     monitor.MConf
-	Performance       PerformanceConfigs
-	DynamicConfig     DynamicConfigInfo
-	HTTPConfig        http.Config `json:"HttpConfig"`
-	Profiler          ProfilerConfig
-	ResponseHeaders   ResponseHeaderFields
-	ApplicationConfig interface{}
+	AppName              string `json:"AppName"`
+	AppVersion           string `json:"AppVersion"`
+	ServerPort           string
+	LogConfFile          string
+	MonitorConfig        monitor.MConf
+	Performance          PerformanceConfigs
+	DynamicConfig        DynamicConfigInfo
+	HTTPConfig           http.Config `json:"HttpConfig"`
+	Profiler             ProfilerConfig
+	ResponseHeaders      ResponseHeaderFields
+	ApplicationConfig    interface{}
+	AppRateLimiterConfig *ratelimiter.Config
 }
 
 // PerformanceConfigs contains Garbage Collector detials, which will determine when the GC will kick

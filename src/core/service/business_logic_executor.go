@@ -36,11 +36,34 @@ func (n BusinessLogicExecutor) Execute(data workflow.WorkFlowData) (workflow.Wor
 	logger.Info(fmt.Sprintf("Resource: %s, Version: %s, Action: %s, BucketId: %s, PathParams: %s", resource,
 		version, action, orchBucket, pathParams), rc)
 
-	orchestrator, parameters, oerr := orchestratorhelper.GetOrchestrator(resource, version,
+	orchestrator, ratelimiter, parameters, oerr := orchestratorhelper.GetOrchestrator(resource, version,
 		action, orchBucket, pathParams)
 	if oerr != nil {
 		data.IOData.Set(constants.APPError, oerr)
 		return data, nil
+	}
+
+	if ratelimiter != nil {
+		if rl := *ratelimiter; rl != nil {
+			exceeded, res, err := rl.RateLimit("")
+			if err != nil {
+				appError := &constants.AppError{
+					Code:    constants.RateLimiterInternalError,
+					Message: err.Error(),
+				}
+				data.IOData.Set(constants.APPError, appError)
+				return data, nil
+			}
+			if exceeded {
+				appError := &constants.AppError{
+					Code:             constants.RateLimitExceeded,
+					Message:          fmt.Sprintf("Retry after: %v", res.RetryAfter),
+					DeveloperMessage: fmt.Sprintf("Rate limit exceeded"),
+				}
+				data.IOData.Set(constants.APPError, appError)
+				return data, nil
+			}
+		}
 	}
 
 	req, err := misc.GetRequestFromIO(data)

@@ -16,6 +16,7 @@ var _ = gk.Describe("Starting scenario: \n", func() {
 	InitializeTestService()
 	getHealthCheckTest()
 	testRequestValidation()
+	testRateLimitedAPI()
 	sqldbTest()
 	mongodbTest()
 	cacheTest()

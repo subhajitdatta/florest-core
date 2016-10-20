@@ -5,6 +5,7 @@ import (
 	"github.com/jabong/florest-core/src/common/config"
 	"github.com/jabong/florest-core/src/common/constants"
 	"github.com/jabong/florest-core/src/common/logger"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 	utilhttp "github.com/jabong/florest-core/src/common/utils/http"
 	workflow "github.com/jabong/florest-core/src/core/common/orchestrator"
 	"github.com/jabong/florest-core/src/core/common/versionmanager"
@@ -24,7 +25,7 @@ func (ws Webserver) ServiceHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	serviceVersion, _, gerr := versionmanager.Get("SERVICE", "V1", "GET", constants.OrchestratorBucketDefaultValue, "")
+	serviceVersion, _, _, gerr := versionmanager.Get("SERVICE", "V1", "GET", constants.OrchestratorBucketDefaultValue, "")
 
 	if gerr != nil {
 		fmt.Fprintf(w, "Error %v", gerr)
@@ -59,7 +60,22 @@ func (ws Webserver) Start() {
 	logger.Info(fmt.Sprintln("Web server Initialization done"))
 
 	//All requests will be passed to the service handler
-	http.HandleFunc("/", utilhttp.MakeGzipHandler(ws.wrapperHandler))
+	var httpHandlerFunc = utilhttp.MakeGzipHandler(ws.wrapperHandler)
+
+	if config.GlobalAppConfig.AppRateLimiterConfig != nil {
+		//Rate Limit the App
+		rl, rerr := ratelimiter.New(config.GlobalAppConfig.AppRateLimiterConfig)
+		if rerr != nil {
+			logger.Error(fmt.Sprintln("Could not initialise rate limiter ", rerr.Error()))
+			panic(rerr)
+		}
+
+		httpHandlerFunc = utilhttp.MakeGzipHandler(
+			ratelimiter.MakeRateLimitedHTTPHandler(ws.wrapperHandler, rl, "SERVICE"),
+		)
+	}
+
+	http.HandleFunc("/", httpHandlerFunc)
 
 	//Start the web server
 	url := ":" + config.GlobalAppConfig.ServerPort

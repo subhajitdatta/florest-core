@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/jabong/florest-core/src/common/constants"
 	"github.com/jabong/florest-core/src/common/logger"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 	"github.com/jabong/florest-core/src/core/common/orchestrator"
 	"github.com/jabong/florest-core/src/core/common/utils/healthcheck"
 	"github.com/jabong/florest-core/src/core/common/versionmanager"
@@ -54,4 +55,8 @@ func (a *HelloMongoAPI) GetHealthCheck() healthcheck.HCInterface {
 
 func (a *HelloMongoAPI) Init() {
 	//api initialization should come here
+}
+
+func (a *HelloMongoAPI) GetRateLimiter() ratelimiter.RateLimiter {
+	return nil
 }
