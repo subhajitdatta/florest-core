@@ -23,6 +23,7 @@ do
 done
 rm -r $TEST_CONFIG_DIR
 rm $TEMP_COVERAGE_FILE # remove temp coverage
+mkdir -p bin
 mv $COVERAGE_FILE bin/
 cd bin
 go tool cover -html=$COVERAGE_FILE -o $COVERAGE_HTML

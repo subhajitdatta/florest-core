@@ -24,15 +24,15 @@ conf:
 	@bash scripts/logger.sh $(LOGLEVEL) bin/conf/logger.json
 
 install: 
-	@go get ./...
+	@go install ./...
 
-test: format clean install
-	@ginkgo -r -v=true -cover=true ./src/test/
+test: format clean
+	@ginkgo -r -v=true -cover=true ./src/
 
-coverage: install
+coverage:
 	@sh src/test/coverage.sh
 
-bench: install
+bench:
 	@go test -run=NONE -bench=. $(GOFLAGS) ./...
 
 clean:

@@ -7,7 +7,6 @@ import (
 	"github.com/jabong/florest-core/src/core/service"
 	"github.com/jabong/florest-core/src/test/api"
 	testService "github.com/jabong/florest-core/src/test/servicetest"
-	"github.com/julienschmidt/httprouter"
 )
 
 type route struct {
@@ -32,8 +31,6 @@ func (m *mockResponseWriter) WriteString(s string) (n int, err error) {
 func (m *mockResponseWriter) WriteHeader(int) {}
 
 func httpHandlerFunc(w http.ResponseWriter, r *http.Request) {}
-
-func httpRouterHandle(_ http.ResponseWriter, _ *http.Request, _ httprouter.Params) {}
 
 func loadHTTPServeMux(routes []route) http.Handler {
 	serveMux := http.NewServeMux()
