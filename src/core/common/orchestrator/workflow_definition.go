@@ -3,7 +3,7 @@ package orchestrator
 import (
 	"errors"
 	"fmt"
-	"github.com/jabong/florest-core/src/core/common/collections"
+	"github.com/jabong/florest-core/src/common/collections/stack"
 )
 
 /*
@@ -246,7 +246,7 @@ func (d *WorkFlowDefinition) createJoinForkMapping() error {
 		return serr
 	}
 
-	return d.createJoinForkMappingHelper(*sNode, d.startNodeID, &collections.Stack{})
+	return d.createJoinForkMappingHelper(*sNode, d.startNodeID, &stack.Stack{})
 }
 
 func (d *WorkFlowDefinition) String() string {
@@ -260,7 +260,7 @@ func (d *WorkFlowDefinition) String() string {
 
 func (d *WorkFlowDefinition) forkTypeNodeHelper(forkNode WorkFlowForkNodeInterface,
 	forkNodeID string,
-	stck *collections.Stack) error {
+	stck *stack.Stack) error {
 
 	stck.Push(forkNode)
 	forkedEdges, found := d.edges[forkNodeID]
@@ -285,7 +285,7 @@ func (d *WorkFlowDefinition) forkTypeNodeHelper(forkNode WorkFlowForkNodeInterfa
 
 func (d *WorkFlowDefinition) joinTypeNodeHelper(joinNode WorkFlowJoinNodeInterface,
 	joinNodeID string,
-	stck *collections.Stack) error {
+	stck *stack.Stack) error {
 
 	if stck.IsEmpty() {
 		return errors.New("Join node does not have a corresponding fork node")
@@ -312,7 +312,7 @@ func (d *WorkFlowDefinition) joinTypeNodeHelper(joinNode WorkFlowJoinNodeInterfa
 
 func (d *WorkFlowDefinition) executeTypeNodeHelper(execNode WorkFlowExecuteNodeInterface,
 	execNodeID string,
-	stck *collections.Stack) error {
+	stck *stack.Stack) error {
 
 	edges, found := d.edges[execNodeID]
 	if !found || len(edges) == 0 {
@@ -325,7 +325,7 @@ func (d *WorkFlowDefinition) executeTypeNodeHelper(execNode WorkFlowExecuteNodeI
 
 func (d *WorkFlowDefinition) decisionTypeNodeHelper(decisionNode WorkFlowDecisionNodeInterface,
 	decisionNodeID string,
-	stck *collections.Stack) error {
+	stck *stack.Stack) error {
 
 	edges, found := d.edges[decisionNodeID]
 	if !found || len(edges) == 0 {
@@ -350,7 +350,7 @@ func (d *WorkFlowDefinition) decisionTypeNodeHelper(decisionNode WorkFlowDecisio
 
 func (d *WorkFlowDefinition) createJoinForkMappingHelper(currNode WorkFlowNodeInterface,
 	currNodeID string,
-	stck *collections.Stack) error {
+	stck *stack.Stack) error {
 
 	//Error condition
 	if (currNode == nil || currNodeID == "") && !stck.IsEmpty() {

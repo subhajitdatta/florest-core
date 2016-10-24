@@ -1,6 +1,8 @@
-package collections
+package stack
 
 import (
+	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -15,9 +17,17 @@ func TestStackIsEmpty(t *testing.T) {
 		t.Error("IsEmpty check failed for empty stack")
 	}
 
+	if actualSize := stck.Size(); actualSize != 0 {
+		t.Errorf("Size() - Got %v expected %v", actualSize, 0)
+	}
+
 	stck.Push(10)
 	if stck.IsEmpty() {
 		t.Error("IsEmpty check failed after stack push")
+	}
+
+	if actualSize := stck.Size(); actualSize != 1 {
+		t.Errorf("Size() - Got %v expected %v", actualSize, 1)
 	}
 
 	stck.Pop()
@@ -67,6 +77,38 @@ func TestStackPop(t *testing.T) {
 }
 
 /*
+Test Stack Contains Clear
+*/
+func TestStackContainsClear(t *testing.T) {
+
+	stck := new(Stack)
+	stck.Push(10)
+	stck.Push(20)
+
+	// Testing contains method
+	if contains := stck.Contains(10, 20); !contains {
+		t.Errorf("Contains() - Got %v expected %v", contains, true)
+	}
+
+	if contains := stck.Contains(15, 20); contains {
+		t.Errorf("!Contains() - Got %v expected %v", contains, false)
+	}
+
+	// Testing Clear method
+	stck.Clear()
+
+	if actualValues, expectedValues := fmt.Sprintf("%s", stck.Values()), "[]"; actualValues != expectedValues {
+		t.Errorf("Values() - Got %v expected %v", actualValues, expectedValues)
+	}
+	if actualSize := stck.Size(); actualSize != 0 {
+		t.Errorf("Size() - Got %v expected %v", actualSize, 0)
+	}
+	if isEmpty := stck.IsEmpty(); !isEmpty {
+		t.Errorf("IsEmpty() - Got %v expected %v", isEmpty, true)
+	}
+}
+
+/*
 Test Stack Clone for empty stack
 */
 func TestEmptyStackClone(t *testing.T) {
@@ -86,9 +128,16 @@ func TestStackClone(t *testing.T) {
 		x int
 	}
 
+	v1 := V{x: 10}
+	v2 := V{x: 20}
+
 	stck := new(Stack)
-	stck.Push(V{x: 10})
-	stck.Push(V{x: 20})
+	stck.Push(v1)
+	stck.Push(v2)
+
+	if actualValues, expectedValues := stck.Values(), []interface{}{v2, v1}; !Equals(actualValues, expectedValues) {
+		t.Errorf("Values() - Got %v expected %v", actualValues, expectedValues)
+	}
 
 	cloneStck := stck.Clone()
 
@@ -96,9 +145,9 @@ func TestStackClone(t *testing.T) {
 		t.Error("Failed to clone empty stack")
 	}
 
-	// 	if cloneStck.Pop() == stck.Pop() {
-	// 		t.Error("Stack Clone is not deep copy")
-	// 	}
+	if actualValues, expectedValues := cloneStck.Values(), []interface{}{v2, v1}; !Equals(actualValues, expectedValues) {
+		t.Errorf("Values() - Got %v expected %v", actualValues, expectedValues)
+	}
 }
 
 /*
@@ -142,4 +191,8 @@ func TestStackNilClone(t *testing.T) {
 		t.Error("Type assestion/Incorrect value for the stack pop with nil value")
 	}
 
+}
+
+func Equals(a []interface{}, b []interface{}) bool {
+	return reflect.DeepEqual(a, b)
 }
