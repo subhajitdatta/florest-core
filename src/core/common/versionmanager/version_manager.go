@@ -2,6 +2,7 @@ package versionmanager
 
 import (
 	"errors"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 )
 
 /*
@@ -28,13 +29,14 @@ func Initialize(m VersionMap) {
 /*
 Get the executable for the resource, version, action, bucketId
 */
-func Get(resource string, version string, action string, bucketID string, pathParams string) (Versionable, map[string]string, error) {
+func Get(resource string, version string, action string,
+	bucketID string, pathParams string) (Versionable, *ratelimiter.RateLimiter, map[string]string, error) {
 	if vmgr == nil {
-		return nil, nil, errors.New("Version manager not initialized")
+		return nil, nil, nil, errors.New("Version manager not initialized")
 	}
 
 	if vmgr.mapping == nil {
-		return nil, nil, errors.New("No version mapping present")
+		return nil, nil, nil, errors.New("No version mapping present")
 	}
 
 	ver := BasicVersion{
@@ -46,15 +48,15 @@ func Get(resource string, version string, action string, bucketID string, pathPa
 
 	param, ok := vmgr.mapping[ver]
 	if !ok {
-		return nil, nil, errors.New("Versionable not found in version manager")
+		return nil, nil, nil, errors.New("Versionable not found in version manager")
 	}
 
 	parameters := make(map[string]string)
-	versionable, err := param.GetVersionable(pathParams, &parameters)
+	versionable, ratelimiter, err := param.GetVersionable(pathParams, &parameters)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
 
-	return versionable, parameters, nil
+	return versionable, ratelimiter, parameters, nil
 }

@@ -12,8 +12,11 @@ func InitializeTestService() {
 
 	reqVNAPI := new(api.ReqVNAPI)
 	reqVNAPI.SetVersion("GET", "V1", "REQVD", "")
-
 	service.RegisterAPI(reqVNAPI)
+
+	testRateLimitedAPI := new(api.TestRateLimitedAPI)
+	testRateLimitedAPI.SetVersion("GET", "V1", "TESTRATE", "")
+	service.RegisterAPI(testRateLimitedAPI)
 
 	env.GetOsEnviron()
 

@@ -85,9 +85,9 @@ func initLogger() {
 //initVersionManager create the WorkFlows
 func InitVersionManager() {
 	serviceParam := versionmanager.NewParam()
-	serviceParam.Update("", createServiceOrchestrator())
+	serviceParam.Update("", createServiceOrchestrator(), nil)
 	healthCheckParam := versionmanager.NewParam()
-	healthCheckParam.Update("", createHealthCheckOrchestrator())
+	healthCheckParam.Update("", createHealthCheckOrchestrator(), nil)
 	vmap := versionmanager.VersionMap{
 		versionmanager.BasicVersion{
 			Resource: "SERVICE",
@@ -123,7 +123,8 @@ func addAPIVersions(vmap versionmanager.VersionMap) {
 			param = versionmanager.NewParam()
 			vmap[version.GetBasicVersion()] = param
 		}
-		err := param.Update(version.Path, apiInstance.GetOrchestrator())
+		rl := apiInstance.GetRateLimiter()
+		err := param.Update(version.Path, apiInstance.GetOrchestrator(), &rl)
 		if err != nil {
 			logger.Error("Path - " + version.Path + " is not valid. Err : " + err.Error())
 		}

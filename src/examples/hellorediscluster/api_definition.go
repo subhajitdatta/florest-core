@@ -5,6 +5,7 @@ import (
 
 	"github.com/jabong/florest-core/src/common/constants"
 	"github.com/jabong/florest-core/src/common/logger"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 	"github.com/jabong/florest-core/src/core/common/orchestrator"
 	"github.com/jabong/florest-core/src/core/common/utils/healthcheck"
 	"github.com/jabong/florest-core/src/core/common/versionmanager"
@@ -55,4 +56,8 @@ func (a *HelloRedisClusterAPI) GetHealthCheck() healthcheck.HCInterface {
 
 func (a *HelloRedisClusterAPI) Init() {
 	//api initialization should come here
+}
+
+func (a *HelloRedisClusterAPI) GetRateLimiter() ratelimiter.RateLimiter {
+	return nil
 }

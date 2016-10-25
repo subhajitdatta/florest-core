@@ -5,6 +5,7 @@ import (
 
 	"github.com/jabong/florest-core/src/common/constants"
 	"github.com/jabong/florest-core/src/common/logger"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 	workflow "github.com/jabong/florest-core/src/core/common/orchestrator"
 	"github.com/jabong/florest-core/src/core/common/versionmanager"
 )
@@ -12,22 +13,22 @@ import (
 func GetOrchestrator(resource string,
 	version string,
 	action string,
-	bucketID string, pathParams string) (*workflow.Orchestrator, *map[string]string, error) {
+	bucketID string, pathParams string) (*workflow.Orchestrator, *ratelimiter.RateLimiter, *map[string]string, error) {
 
 	logFormatter := "GetOrchestrator ==== Resource: %v === Version: %v === Action: %v === BucketId: %v === PathParams: %v"
 	logger.Info(fmt.Sprintf(logFormatter, resource, version, action, bucketID, pathParams))
-	orchestratorVersion, parameters, gerr := versionmanager.Get(resource, version, action, bucketID, pathParams)
+	orchestratorVersion, ratelimiter, parameters, gerr := versionmanager.Get(resource, version, action, bucketID, pathParams)
 	if gerr != nil {
-		return nil, nil, &constants.AppError{Code: constants.InvalidRequestURI, Message: gerr.Error()}
+		return nil, nil, nil, &constants.AppError{Code: constants.InvalidRequestURI, Message: gerr.Error()}
 	}
 
 	orchestrator, ok := orchestratorVersion.(workflow.Orchestrator)
 	if !ok {
-		return nil, nil, &constants.AppError{Code: constants.ResourceErrorCode,
+		return nil, nil, nil, &constants.AppError{Code: constants.ResourceErrorCode,
 			Message: "Error retrieving orchestrator"}
 	}
 
-	return &orchestrator, &parameters, nil
+	return &orchestrator, ratelimiter, &parameters, nil
 
 }
 

@@ -2,6 +2,7 @@ package versionmanager
 
 import (
 	"errors"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 	"strings"
 )
 
@@ -36,6 +37,7 @@ type Param struct {
 	versionable Versionable
 	pathParams  map[string]*Param
 	namedParams map[string]*Param
+	rateLimiter *ratelimiter.RateLimiter
 }
 
 func NewParam() *Param {
@@ -47,9 +49,11 @@ func NewParam() *Param {
 	return &p
 }
 
-func (param *Param) Update(path string, versionable Versionable) error {
+func (param *Param) Update(path string, versionable Versionable,
+	rl *ratelimiter.RateLimiter) error {
 	if path == "" {
 		param.versionable = versionable
+		param.rateLimiter = rl
 		return nil
 	}
 	pathArr := strings.Split(path, "/")
@@ -76,21 +80,24 @@ func (param *Param) Update(path string, versionable Versionable) error {
 		}
 	}
 	param.versionable = versionable
+	param.rateLimiter = rl
 	return nil
 }
 
-func (param *Param) GetVersionable(pathParams string, parameters *map[string]string) (Versionable, error) {
+func (param *Param) GetVersionable(pathParams string,
+	parameters *map[string]string) (Versionable, *ratelimiter.RateLimiter, error) {
 	if pathParams == "" {
 		if param.versionable == nil {
-			return nil, errors.New("Versionable not found in version manager")
+			return nil, nil, errors.New("Versionable not found in version manager")
 		}
-		return param.versionable, nil
+		return param.versionable, param.rateLimiter, nil
 	}
 	pathParamsArr := strings.Split(pathParams, "/")
 	return param.getVersionableObj(pathParamsArr, parameters)
 }
 
-func (param *Param) getVersionableObj(pathParams []string, parameters *map[string]string) (Versionable, error) {
+func (param *Param) getVersionableObj(pathParams []string,
+	parameters *map[string]string) (Versionable, *ratelimiter.RateLimiter, error) {
 	tempParams := pathParams
 	notFoundError := errors.New("Versionable not found in version manager")
 	for _, pathParam := range pathParams {
@@ -99,19 +106,19 @@ func (param *Param) getVersionableObj(pathParams []string, parameters *map[strin
 			param = param.pathParams[pathParam]
 		} else {
 			for key, namedParam := range param.namedParams {
-				versionable, err := namedParam.getVersionableObj(tempParams, parameters)
+				versionable, rl, err := namedParam.getVersionableObj(tempParams, parameters)
 				if err == nil {
 					(*parameters)[key] = pathParam
-					return versionable, nil
+					return versionable, rl, nil
 				}
 			}
-			return nil, notFoundError
+			return nil, nil, notFoundError
 		}
 	}
 	if param.versionable == nil {
-		return nil, notFoundError
+		return nil, nil, notFoundError
 	}
-	return param.versionable, nil
+	return param.versionable, param.rateLimiter, nil
 }
 
 type VersionMap map[BasicVersion]*Param

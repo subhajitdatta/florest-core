@@ -8,6 +8,7 @@ import (
 	"github.com/jabong/florest-core/src/core/common/orchestrator"
 	"github.com/jabong/florest-core/src/core/common/utils/healthcheck"
 	"github.com/jabong/florest-core/src/core/common/versionmanager"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 )
 
 type HelloAPI struct {
@@ -56,4 +57,8 @@ func (a *HelloAPI) GetHealthCheck() healthcheck.HCInterface {
 
 func (a *HelloAPI) Init() {
 	//api initialization should come here
+}
+
+func (a *HelloAPI) GetRateLimiter() ratelimiter.RateLimiter {
+	return nil
 }

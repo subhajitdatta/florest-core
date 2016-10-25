@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/jabong/florest-core/src/common/constants"
+	"github.com/jabong/florest-core/src/common/ratelimiter"
 	"github.com/jabong/florest-core/src/core/common/orchestrator"
 	"github.com/jabong/florest-core/src/core/common/utils/healthcheck"
 	"github.com/jabong/florest-core/src/core/common/versionmanager"
@@ -48,4 +49,8 @@ func (a *TestAPI) GetHealthCheck() healthcheck.HCInterface {
 
 func (a *TestAPI) Init() {
 	//api initialization should come here
+}
+
+func (a *TestAPI) GetRateLimiter() ratelimiter.RateLimiter {
+	return nil
 }
