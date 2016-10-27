@@ -15,6 +15,9 @@ go:
 - 1.5
 - tip
 
+allow_failures:
+   - go: tip
+
 sudo: required
 
 before_script:
