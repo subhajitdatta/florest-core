@@ -13,10 +13,6 @@ go:
 - 1.7
 - 1.6
 - 1.5
-- tip
-
-allow_failures:
-   - go: tip
 
 sudo: required
 
