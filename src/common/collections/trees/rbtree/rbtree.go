@@ -1,7 +1,6 @@
 package rbtree
 
 import (
-	_ "fmt"
 	"github.com/jabong/florest-core/src/common/collections"
 	"github.com/jabong/florest-core/src/common/collections/utils"
 )
@@ -57,17 +56,11 @@ func (node *Node) rightmostChild() *Node {
 }
 
 func (node *Node) isLeftChild() bool {
-	if node == node.Parent.Left {
-		return true
-	}
-	return false
+	return (node == node.Parent.Left)
 }
 
 func (node *Node) isRightChild() bool {
-	if node == node.Parent.Right {
-		return true
-	}
-	return false
+	return (node == node.Parent.Right)
 }
 
 // Tree represents the red-black tree
@@ -192,7 +185,7 @@ func (t *Tree) Values() []interface{} {
 	return values
 }
 
-// Empty method returns true if the tree does not contain any nodes
+// IsEmpty returns true if the tree does not contain any nodes
 func (t *Tree) IsEmpty() bool {
 	return t.size == 0
 }

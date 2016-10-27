@@ -13,10 +13,7 @@ type Iterator struct {
 // HasNext method moves the iterator to the next element and returns true if there was a next
 // element in the map.
 func (iterator *Iterator) HasNext() bool {
-	if iterator.current == nil {
-		return false
-	}
-	return true
+	return !(iterator.current == nil)
 }
 
 // Next method returns the next element entry if it exists

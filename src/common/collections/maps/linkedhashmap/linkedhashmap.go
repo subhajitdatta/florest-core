@@ -2,8 +2,9 @@ package linkedhashmap
 
 import (
 	"fmt"
-	"github.com/jabong/florest-core/src/common/collections"
 	"strings"
+
+	"github.com/jabong/florest-core/src/common/collections"
 )
 
 // Link represents a node of doubly linked list
@@ -35,7 +36,7 @@ func New() *Map {
 func (m *Map) Put(key interface{}, value interface{}) {
 	link, found := m.m[key]
 	if !found {
-		link := newLink(key, value)
+		link = newLink(key, value)
 		if m.tail == nil {
 			m.head = link
 			m.tail = link

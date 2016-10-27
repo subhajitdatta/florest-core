@@ -2,9 +2,10 @@ package treeset
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/jabong/florest-core/src/common/collections"
 	rbt "github.com/jabong/florest-core/src/common/collections/trees/rbtree"
-	"strings"
 )
 
 // Set holds elements in a red-black tree

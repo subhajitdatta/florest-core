@@ -1,4 +1,4 @@
-// Package redblacktree implements a red-black tree.
+// Package rbtree implements a red-black tree.
 //
 // Used by TreeSet and TreeMap.
 //

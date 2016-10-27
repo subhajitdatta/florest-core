@@ -5,7 +5,7 @@ import (
 	"github.com/jabong/florest-core/src/common/collections/sets"
 )
 
-// A Set that further provides a total ordering on its elements.
+// Package SortedSet provides a Set that further provides a total ordering on its elements.
 //
 // The elements are ordered using their natural ordering, or by a
 // Comparator typically provided at sorted set creation time.

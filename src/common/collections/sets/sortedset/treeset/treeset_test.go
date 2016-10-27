@@ -1,9 +1,10 @@
 package treeset
 
 import (
-	"github.com/jabong/florest-core/src/common/collections/utils"
 	"reflect"
 	"testing"
+
+	"github.com/jabong/florest-core/src/common/collections/utils"
 )
 
 func TestSetAdd(t *testing.T) {
@@ -13,7 +14,7 @@ func TestSetAdd(t *testing.T) {
 	set.Add(2)
 	set.Add(2, 1)
 	set.Add()
-	if actualValue := set.IsEmpty(); actualValue != false {
+	if actualValue := set.IsEmpty(); actualValue {
 		t.Errorf("Got %v expected %v", actualValue, false)
 	}
 	if actualValue := set.Size(); actualValue != 3 {
