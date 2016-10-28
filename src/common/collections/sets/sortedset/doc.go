@@ -1,4 +1,5 @@
-// A Set that further provides a total ordering on its elements.
+// Package sortedset provides a Set that further provides a total ordering
+// on its elements.
 //
 // The elements are ordered using their natural ordering, or by a
 // Comparator typically provided at sorted set creation time.

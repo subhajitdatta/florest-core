@@ -1,4 +1,5 @@
-// Hash table and linked list implementation of the Set interface, with predictable iteration order.
+// Package linkedhashset provides a hash table and linked list implementation of the Set interface,
+// with predictable iteration order.
 //
 // This implementation differs from HashSet in that it maintains a doubly-linked list running through
 // all of its entries. This linked list defines the iteration ordering, which is the order in

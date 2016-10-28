@@ -2,9 +2,10 @@ package treemap
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/jabong/florest-core/src/common/collections"
 	rbt "github.com/jabong/florest-core/src/common/collections/trees/rbtree"
-	"strings"
 )
 
 // Map holds the elements in a red-black tree
@@ -77,7 +78,7 @@ func (m *Map) Clear() {
 	m.tree.Clear()
 }
 
-// Returns true if the given keys are found in the map
+// Contains returns true if the given keys are found in the map
 func (m *Map) Contains(keys ...interface{}) bool {
 	return m.tree.Contains(keys...)
 }

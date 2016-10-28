@@ -62,7 +62,7 @@ func (set *Set) Clear() {
 func (set *Set) Values() []interface{} {
 	values := make([]interface{}, set.Size())
 	index := 0
-	for item, _ := range set.items {
+	for item := range set.items {
 		values[index] = item
 		index++
 	}
@@ -72,7 +72,7 @@ func (set *Set) Values() []interface{} {
 // String returns a string representation of container
 func (set *Set) String() string {
 	str := "HashSet\n"
-	for item, _ := range set.items {
+	for item := range set.items {
 		str += fmt.Sprintf("%v,", item)
 	}
 	return strings.TrimRight(str, ",")
