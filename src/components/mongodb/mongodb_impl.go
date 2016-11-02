@@ -75,3 +75,8 @@ func (obj *MongoDriver) Remove(collection string, query map[string]interface{}) 
 	}
 	return nil
 }
+
+// Close shuts down the current session.
+func (obj *MongoDriver) Close() {
+	obj.session.Close()
+}

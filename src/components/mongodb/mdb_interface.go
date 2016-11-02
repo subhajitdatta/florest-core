@@ -16,4 +16,6 @@ type MDBInterface interface {
 	Update(string, map[string]interface{}, interface{}) *MDBError
 	// Remove delete existing item
 	Remove(string, map[string]interface{}) *MDBError
+	// Close shuts down the current session.
+	Close()
 }
