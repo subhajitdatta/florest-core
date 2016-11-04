@@ -1,22 +1,17 @@
 package sqldb
 
 import (
+	"github.com/jabong/florest-core/src/common/collections/maps/concurrentmap/concurrenthashmap"
 	"reflect"
-	"sync"
 )
 
 // sdbMap map to store cache interface
-var sdbMap = make(map[string]SDBInterface)
-
-// mutex used to edit the map with lock
-var mutex *sync.Mutex = new(sync.Mutex)
+var sdbMap = concurrenthashmap.New()
 
 // Set() stores the key with given type post init check
 func Set(key string, conf *SDBConfig, obj interface{}) *SDBError {
 	if val, ok := obj.(SDBInterface); ok {
-		mutex.Lock()
-		defer mutex.Unlock()
-		if _, ok = sdbMap[key]; ok {
+		if _, ok = sdbMap.Get(key); ok {
 			return getErrObj(ErrKeyPresent, "given key:"+key)
 		}
 		// check error for initialization
@@ -24,7 +19,7 @@ func Set(key string, conf *SDBConfig, obj interface{}) *SDBError {
 			return getErrObj(ErrInitialization, err.Error())
 		}
 		// store the new key
-		sdbMap[key] = val
+		sdbMap.Put(key, val)
 		return nil
 	} else {
 		return getErrObj(ErrWrongType, reflect.TypeOf(obj).String()+":does not implement SDBInterface")
@@ -34,11 +29,9 @@ func Set(key string, conf *SDBConfig, obj interface{}) *SDBError {
 
 // Get() - returns the sql db interface for given key
 func Get(key string) (SDBInterface, *SDBError) {
-	mutex.Lock() // lock required as of go 1.6 concurrent read and write are not safe in map
-	defer mutex.Unlock()
-	if val, ok := sdbMap[key]; !ok {
+	if val, ok := sdbMap.Get(key); !ok {
 		return nil, getErrObj(ErrKeyNotPresent, "given key:"+key)
 	} else {
-		return val, nil
+		return val.(SDBInterface), nil
 	}
 }
