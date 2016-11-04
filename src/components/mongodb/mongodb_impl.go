@@ -5,10 +5,6 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type MSession struct {
-	mgoSession *mgo.Session
-}
-
 // mongodb driver
 type MongoDriver struct {
 	conn    *mgo.Database
@@ -29,10 +25,23 @@ func (obj *MongoDriver) Init(conf *MDBConfig) *MDBError {
 
 }
 
-func (obj *MongoDriver) Copy() *MSession {
+func (obj *MongoDriver) Copy(safe *Safe) *MSession {
 	ms := new(MSession)
 	ms.mgoSession = obj.session.Copy()
+	if safe != nil {
+		ms.mgoSession.SetSafe(obj.getMSafeFrom(safe))
+	}
 	return ms
+}
+
+func (obj *MongoDriver) getMSafeFrom(safe *Safe) *mgo.Safe {
+	mgoSafe := new(mgo.Safe)
+	mgoSafe.FSync = safe.FSync
+	mgoSafe.J = safe.J
+	mgoSafe.W = safe.W
+	mgoSafe.WMode = safe.WMode
+	mgoSafe.WTimeout = safe.WTimeout
+	return mgoSafe
 }
 
 // Close shuts down the current session.
@@ -40,6 +49,11 @@ func (obj *MongoDriver) Close(session *MSession) {
 	if session == nil {
 		return
 	}
+	session.mgoSession.Close()
+}
+
+// CloseMasterSession closes the master session
+func (obj *MongoDriver) CloseMasterSession() {
 	obj.session.Close()
 }
 

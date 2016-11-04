@@ -33,5 +33,9 @@ type MDBInterface interface {
 	// Close shuts down the current session.
 	Close(*MSession)
 
-	Copy() *MSession
+	// Copy creates a copy of master session
+	Copy(safe *Safe) *MSession
+
+	// CloseMasterSession closes the master session
+	CloseMasterSession()
 }
