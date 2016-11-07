@@ -17,7 +17,9 @@ func TestMongodb(t *testing.T) {
 	// Test methods: valid url,db and collection
 	conf.URL = "mongodb://localhost:27017"
 	conf.DbName = "flashback"
-	Set("mymongo", conf, new(MongoDriver))
+	if err := Set("mymongo", conf, new(MongoDriver)); err != nil {
+		t.Fatalf("Failed to set MongoDriver impl", err)
+	}
 	if _, err := Get("mymongo"); err != nil {
 		t.Fatalf("Failed to get config %v", err)
 	}
