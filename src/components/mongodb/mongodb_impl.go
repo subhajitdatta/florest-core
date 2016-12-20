@@ -132,6 +132,25 @@ func (obj *MongoDriver) update(collection *mgo.Collection, query bson.M, value i
 	return nil
 }
 
+// Upsert updates/inserts the mongo DB collection passed as an argument
+func (obj *MongoDriver) Upsert(collection string, query map[string]interface{}, value interface{}) *MDBError {
+	obj.session.Refresh()
+	return obj.upsert(obj.conn.C(collection), bson.M(query), value)
+}
+
+// UpsertUsingSession updates/inserts the mongo DB collection passed as an argument using the session passed as argument
+func (obj *MongoDriver) UpsertUsingSession(session *MSession, collection string, query map[string]interface{}, value interface{}) *MDBError {
+	sess := session.mgoSession
+	return obj.upsert(sess.DB(obj.conf.DbName).C(collection), bson.M(query), value)
+}
+
+func (obj *MongoDriver) upsert(collection *mgo.Collection, query bson.M, value interface{}) *MDBError {
+	if _, err := collection.Upsert(query, value); err != nil {
+		return getErrObj(ErrUpdateFailure, err.Error())
+	}
+	return nil
+}
+
 // Remove deletes the documents using session from the collection passed in the argument
 func (obj *MongoDriver) RemoveUsingSession(session *MSession, collection string, query map[string]interface{}) *MDBError {
 	sess := session.mgoSession

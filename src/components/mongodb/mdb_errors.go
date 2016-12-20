@@ -17,6 +17,7 @@ const (
 	ErrFindAllFailure = "Failure in FindAll() method"
 	ErrInsertFailure  = "Failure in Insert() method"
 	ErrUpdateFailure  = "Failure in Update() method"
+	ErrUpsertFailure  = "Failure in Upsert() method"
 	ErrRemoveFailure  = "Failure in Remove() method"
 	ErrKeyPresent     = "Key is already present"
 	ErrKeyNotPresent  = "Key is not present"

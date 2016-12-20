@@ -25,6 +25,11 @@ type MDBInterface interface {
 
 	UpdateUsingSession(*MSession, string, map[string]interface{}, interface{}) *MDBError
 
+	// Update modify existing item or insert new item if does not exist
+	Upsert(string, map[string]interface{}, interface{}) *MDBError
+
+	UpsertUsingSession(*MSession, string, map[string]interface{}, interface{}) *MDBError
+
 	// Remove delete existing item
 	Remove(string, map[string]interface{}) *MDBError
 
